@@ -1,0 +1,865 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  
+  <title>IOMEAL</title>
+  <!-- slider stylesheet -->
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+  
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}" />
+  
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Poppins:400,700|Raleway:400,700&display=swap"
+    rel="stylesheet" />
+  
+  <!-- Custom styles for this template -->
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  <!-- responsive style -->
+  <link rel="stylesheet" href="{% static 'css/responsive.css' %}" />
+  
+  <link rel="stylesheet" href="{% static 'css/pop.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/best_before3.css' %}" />
+
+  <!-- flaticon stylesheet -->
+  <link rel="stylesheet" href="{% static 'css/flaticon.css' %}">
+  
+
+
+
+  <style>
+       @font-face {
+      font-family: 'Pretendard-Regular';
+      src: url('{% static "fonts/Pretendard-Regular.otf" %}');
+    }
+
+    @font-face {
+      font-family: 'Pretendard-Bold';
+      src: url('{% static "fonts/Pretendard-Bold.otf" %}');
+    }
+
+    @font-face {
+      font-family: 'Pretendard-ExtraBold';
+      src: url('{% static "fonts/Pretendard-ExtraBold.otf" %}');
+    }
+
+
+    /* Global styles */
+    * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+          }
+          
+          body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            font-weight: 300;
+            min-height: 1000px;
+            line-height: 1.6;
+          }
+          
+          /* Text styles */
+          h1, h2 {
+            text-align: center;
+            margin-bottom: 20px;
+          }
+
+
+
+    .recipe-container {
+    max-width: 900px;
+    margin: 30px auto;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    padding: 15px 100px 0px 100px; /* 상, 우, 하, 좌 순서로 설정 */
+
+}
+
+.recipe-header {
+  font-family: Pretendard-Bold;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    text-align: center;
+    margin-bottom: 20px;
+    
+}
+
+.recipe-content {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.recipe-image img {
+    max-width: 500px;
+    height: auto;
+    border-radius: 10px;
+}
+
+.recipe-info {
+    
+    flex: 1;
+    margin-left: 20px;
+}
+
+.recipe-info h2 {
+  font-family: Pretendard-Bold;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.recipe-info ul {
+  font-family: Pretendard-Regular;
+    list-style-type: disc;
+    padding-left: 20px;
+
+}
+
+.recipe-instructions h2 {
+  font-family: Pretendard-Bold;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.recipe-instructions ol {
+  font-family: Pretendard-Regular;
+    list-style-type: decimal;
+    padding-left: 20px;
+}
+
+.recipe-tip {
+    margin-top: 20px;
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.recipe-tip h2 {
+  font-family: Pretendard-Bold;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.recipe-tip ul {
+  font-family: Pretendard-Regular;
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+
+
+/* 기본 설정 */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0 !important; /* 여백 완전히 제거 */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* 화면 전체 높이를 최소 높이로 설정 */
+}
+
+.hero_area {
+    flex: 1; /* hero_area가 페이지의 남는 공간을 채우도록 설정 */
+}
+
+.footer_section {
+    background-color: #363535;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    width: 100%;
+    margin-top: auto !important; /* 남는 공간을 밀어내고 하단에 위치 */
+
+}
+
+.hot_section {
+    padding-bottom: 0; /* 불필요한 하단 패딩 제거 */
+    margin-bottom: 0; /* 불필요한 하단 마진 제거 */
+}
+
+
+.recipe-image img {
+    width: 350px;
+    height: 250px;
+    object-fit: cover; /* 이미지를 고정 크기에 맞게 자르기 */
+    border-radius: 10px;
+}
+
+
+
+
+/* 반응형 레이아웃 적용 */
+
+/* 작은 화면 (모바일) */
+@media (max-width: 600px) {
+    .recipe-container {
+        padding: 10px; /* 작은 화면에서는 패딩을 줄여서 공간 확보 */
+        margin: 60px; /* 컨테이너에 여백 추가 */
+    }
+
+    .recipe-content {
+        display: block; /* 작은 화면에서는 세로 정렬로 변경 */
+    }
+
+    .recipe-image img {
+        max-width: 100%; /* 이미지가 화면 너비에 맞게 조정 */
+        margin-bottom: 20px; /* 이미지 하단에 간격 추가 */
+    }
+
+    .recipe-info {
+        margin-left: 0;
+        text-align: center;
+    }
+
+    .recipe-info ul {
+        padding-left: 10px;
+    }
+}
+
+/* 중간 화면 (태블릿) */
+@media (min-width: 601px) and (max-width: 1024px) {
+    .recipe-container {
+        padding: 20px 50px; /* 중간 화면에서는 적당한 패딩 설정 */
+        margin: 60px; /* 컨테이너에 여백 추가 */
+    }
+
+    .recipe-content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .recipe-image img {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 20px;
+    }
+
+    .recipe-info {
+        margin-left: 0;
+        text-align: left;
+    }
+}
+
+/* 큰 화면 (데스크탑) */
+@media (min-width: 1025px) {
+    .recipe-container {
+        padding: 15px 100px;
+        margin: 60px auto; /* 큰 화면에서는 여백을 크게 설정 */
+        max-width: 1200px; /* 컨테이너 너비 제한 */
+    }
+
+    .recipe-content {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .recipe-image img {
+        max-width: 500px;
+        height: auto;
+    }
+
+    .recipe-info {
+        margin-left: 20px;
+    }
+}
+
+
+
+.recipe-container {
+    position: relative; /* 컨테이너에 상대 위치 설정 */
+    max-width: 900px;
+    margin: 30px auto;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    padding: 15px 100px 0px 100px;
+}
+
+.arrow-left, .arrow-right {
+    position: absolute; /* 컨테이너 내부에서 위치 고정 */
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2em;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.7);
+    background-color: #333;
+    padding: 10px;
+    border-radius: 50%;
+    z-index: 1000; /* 다른 요소들보다 위에 위치 */
+}
+
+.arrow-left {
+    left: -40px; /* 컨테이너 왼쪽에 위치 */
+}
+
+.arrow-right {
+    right: -40px; /* 컨테이너 오른쪽에 위치 */
+}
+
+.arrow-left:hover, .arrow-right:hover {
+    background-color: #444;
+    color: white;
+}
+
+
+/* 애니메이션 정의 */
+/* 슬라이드 아웃 (왼쪽으로 나감) */
+.slide-out-left {
+    animation: slideOutLeft 0.5s forwards;
+}
+
+@keyframes slideOutLeft {
+    to {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+}
+
+/* 슬라이드 인 (오른쪽에서 들어옴) */
+.slide-in-right {
+    transform: translateX(100%);
+    opacity: 0;
+    animation: slideInRight 0.5s forwards;
+}
+
+@keyframes slideInRight {
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+
+
+
+
+
+          
+  </style>
+
+
+</head>
+
+<body class="sub_page">
+  <div class="hero_area">
+        <!-- header section strats -->
+        <header class="header_section">
+          <div class="container-fluid">
+            <nav class="navbar navbar-expand-lg custom_nav-container">
+            <a class="navbar-brand" href="{% url 'main_home' %}">
+              <img src="{% static 'images/fridge2.png' %}" alt="" />
+              <span>
+              IOMEAL
+              </span>
+            </a>
+        
+            <div class="navbar-collapse" id="">
+              <div class="custom_menu-btn">
+              <button onclick="openNav()">
+                <span class="s-1"> </span>
+                <span class="s-2"> </span>
+                <span class="s-3"> </span>
+              </button>
+              </div>
+              <div id="myNav" class="overlay">
+              <div class="overlay-content" style="font-family: Pretendard-Bold;">
+                <a href="{% url 'main_home' %}" style="margin-bottom: 5px;">홈 화면</a>
+                <a href="{% url 'add_food' %}" style="margin-bottom: 5px;">음식 추가</a>
+                <a href="{% url 'recipes' %}" style="margin-bottom: 5px;">레시피 추천</a>
+                <a href="{% url 'best_before' %}" style="margin-bottom: 5px;">유통기한 확인</a>
+                <a href="{% url 'community' %}" style="margin-bottom: 5px;">맛있는 게시판</a>
+              </div>
+              </div>
+            </div>
+            </nav>
+          </div>
+          </header>
+          <!-- end header section -->
+  </div>
+
+   <!-- Fixed button -->
+   <button class="fixed-button">+</button>
+
+   <div id="popup-list" class="popup-list hidden">
+    <p class="popup-description">다른 방법으로 음식을 추가해보세요:</p>
+    <ul>
+      <li data-link="{% url 'receipt_loading' %}">영수증 인식</li>
+      <li data-link="{% url 'barcode_loading' %}">바코트 인식</li>
+      <li data-link="{% url 'manual_input' %}">직접 입력</li>
+    </ul>
+  </div>
+
+
+
+  <section class="hot_section layout_padding">
+    <div class="container">
+      <div class="heading_container">
+        <h2 style="font-family: Pretendard-ExtraBold; font-size: 45px;">
+          추천 레시피 생성
+        </h2>
+        <hr>
+      </div>
+      <p style="font-family: Pretendard-Regular; font-size: 27px; margin-bottom: 40px;">
+        <br>
+        레시피 생성이 완료되었습니다.
+        <br>
+        마음에 드는 레시피를 선택해주세요.
+        <br>
+      </p>
+    </div>
+  </section>
+
+
+
+
+
+
+
+
+  <div class="recipe-container" id="recipe1">
+    <div class="recipe-header">
+        <h1>간단한 간장 계란밥</h1>
+    </div>
+    
+    <div class="recipe-content">
+        <div class="recipe-image">
+            <img src="{% static 'images/ganjangegg.png' %}" alt="갈비찜 사진">
+        </div>
+        
+        <div class="recipe-info">
+            <h2>재료</h2>
+            <ul>
+              <li>밥 1공기</li>
+  <li>달걀 2개</li>
+  <li>진간장 2숟가락</li>
+  <li>참기름 1숟가락</li>
+  <li>물 2숟가락</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="recipe-instructions">
+        <h2>조리 과정</h2>
+        <ol>
+          <li>그릇에 참기름 ➡️ 간장 ➡️ 달걀 ➡️ 물 순서로 넣습니다.</li>
+  <li>전자레인지에 1분 40초 동안 돌립니다.</li>
+  <li>익은 계란을 밥 위에 올립니다.</li>
+</ol>
+    </div>
+
+    <div class="recipe-tip">
+        <h2>TIP</h2>
+        <ul>
+          <li>달걀 노른자는 터트려 넣어야 터지지 않고 안전하게 익습니다.</li>
+  <li>김가루 등을 올려서 함께 먹으면 더욱 맛있습니다.</li>
+</ul>
+    </div>
+
+      <div class="arrow-left" onclick="previousRecipe()">
+        &#9664; <!-- 왼쪽 화살표 -->
+      </div>
+      
+      <div class="arrow-right" onclick="nextRecipe()">
+        &#9654; <!-- 오른쪽 화살표 -->
+      </div>
+    </div>
+
+
+
+    <div class="recipe-container" id="recipe1">
+      <div class="recipe-header">
+          <h1>간단 된장국</h1>
+      </div>
+      
+      <div class="recipe-content">
+          <div class="recipe-image">
+              <img src="{% static 'images/doenjang_soup.jpg' %}" alt="간단 된장국 사진">
+          </div>
+          
+          <div class="recipe-info">
+              <h2>재료</h2>
+              <ul>
+                  <li>물 2컵</li>
+                  <li>된장 1T</li>
+                  <li>두부 1/4모 (작게 썰기)</li>
+                  <li>대파 약간</li>
+                  <li>다시마 약간 (선택)</li>
+              </ul>
+          </div>
+      </div>
+  
+      <div class="recipe-instructions">
+          <h2>조리 과정</h2>
+          <ol>
+              <li>물에 된장을 풀고 중불에서 끓입니다.</li>
+              <li>물이 끓기 시작하면 두부와 대파를 넣습니다.</li>
+              <li>다시마가 있다면 함께 넣고, 5분 정도 더 끓인 후 건져냅니다.</li>
+              <li>그릇에 담아 따뜻하게 즐깁니다.</li>
+          </ol>
+      </div>
+  
+      <div class="recipe-tip">
+          <h2>TIP</h2>
+          <ul>
+              <li>다시마를 넣으면 국물이 더욱 깊은 맛을 냅니다.</li>
+              <li>두부 대신 감자나 버섯을 넣어도 맛있습니다.</li>
+          </ul>
+      </div>
+
+      <div class="arrow-left" onclick="previousRecipe()">
+        &#9664; <!-- 왼쪽 화살표 -->
+      </div>
+      
+      <div class="arrow-right" onclick="nextRecipe()">
+        &#9654; <!-- 오른쪽 화살표 -->
+      </div>
+  </div>
+
+
+
+
+  <div class="recipe-container" id="recipe3">
+    <div class="recipe-header">
+        <h1>감자채 볶음</h1>
+    </div>
+    
+    <div class="recipe-content">
+        <div class="recipe-image">
+            <img src="{% static 'images/potato_stirfry.jpg' %}" alt="감자채 볶음 사진">
+        </div>
+        
+        <div class="recipe-info">
+            <h2>재료</h2>
+            <ul>
+                <li>감자 1개 (채 썰기)</li>
+                <li>양파 1/2개 (채 썰기)</li>
+                <li>당근 1/4개 (채 썰기)</li>
+                <li>소금 약간</li>
+                <li>후추 약간</li>
+                <li>식용유 1T</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="recipe-instructions">
+        <h2>조리 과정</h2>
+        <ol>
+            <li>감자를 채 썰어 찬물에 5분 정도 담가 전분을 제거한 후 물기를 뺍니다.</li>
+            <li>팬에 식용유를 두르고 중불에서 양파와 당근을 넣고 살짝 볶아줍니다.</li>
+            <li>감자를 넣고 함께 볶다가 소금과 후추로 간을 맞춥니다.</li>
+            <li>감자가 살짝 투명해지고 익을 때까지 중불에서 볶아 마무리합니다.</li>
+        </ol>
+    </div>
+
+    <div class="recipe-tip">
+        <h2>TIP</h2>
+        <ul>
+            <li>감자를 찬물에 담가 전분을 제거하면 더욱 아삭한 식감을 얻을 수 있습니다.</li>
+            <li>기호에 따라 다진 마늘을 추가해 풍미를 더할 수 있습니다.</li>
+            <li>참기름을 조금 넣으면 고소한 맛이 추가됩니다.</li>
+        </ul>
+    </div>
+
+    <div class="arrow-left" onclick="previousRecipe()">
+      &#9664; <!-- 왼쪽 화살표 -->
+    </div>
+    
+    <div class="arrow-right" onclick="nextRecipe()">
+      &#9654; <!-- 오른쪽 화살표 -->
+    </div>
+</div>
+
+
+
+
+
+
+
+<div class="recipe-container" id="recipe5">
+  <div class="recipe-header">
+      <h1>프렌치 토스트</h1>
+  </div>
+  
+  <div class="recipe-content">
+      <div class="recipe-image">
+          <img src="{% static 'images/french_toast.jpg' %}" alt="프렌치 토스트 사진">
+      </div>
+      
+      <div class="recipe-info">
+          <h2>재료</h2>
+          <ul>
+              <li>식빵 2장</li>
+              <li>계란 1개</li>
+              <li>우유 50ml</li>
+              <li>설탕 1t</li>
+              <li>버터 1t</li>
+              <li>시럽 또는 설탕 가루 (선택)</li>
+          </ul>
+      </div>
+  </div>
+
+  <div class="recipe-instructions">
+      <h2>조리 과정</h2>
+      <ol>
+          <li>볼에 계란, 우유, 설탕을 넣고 잘 섞어줍니다.</li>
+          <li>식빵을 계란 혼합물에 담가 앞뒤로 적셔줍니다.</li>
+          <li>팬에 버터를 녹이고 중약불에서 적신 식빵을 양면이 노릇해질 때까지 구워줍니다.</li>
+          <li>완성된 프렌치 토스트를 접시에 담고, 시럽이나 설탕 가루를 뿌려 즐깁니다.</li>
+      </ol>
+  </div>
+
+  <div class="recipe-tip">
+      <h2>TIP</h2>
+      <ul>
+          <li>시나몬 파우더를 추가하면 더욱 풍미가 좋아집니다.</li>
+          <li>딸기나 바나나 같은 과일을 곁들이면 더욱 맛있게 즐길 수 있습니다.</li>
+          <li>팬의 온도를 너무 높이지 않도록 주의하여 타지 않게 구워주세요.</li>
+      </ul>
+  </div>
+
+
+  <div class="arrow-left" onclick="previousRecipe()">
+    &#9664; <!-- 왼쪽 화살표 -->
+  </div>
+  
+  <div class="arrow-right" onclick="nextRecipe()">
+    &#9654; <!-- 오른쪽 화살표 -->
+  </div>
+</div>
+
+
+
+
+<div class="recipe-container" id="recipe6">
+  <div class="recipe-header">
+      <h1>초간단 계란찜</h1>
+  </div>
+  
+  <div class="recipe-content">
+      <div class="recipe-image">
+          <img src="{% static 'images/steamed_egg.jpg' %}" alt="초간단 계란찜 사진">
+      </div>
+      
+      <div class="recipe-info">
+          <h2>재료</h2>
+          <ul>
+              <li>계란 2개</li>
+              <li>물 100ml</li>
+              <li>소금 약간</li>
+              <li>참기름 약간 (선택)</li>
+              <li>쪽파 또는 대파 약간 (선택)</li>
+          </ul>
+      </div>
+  </div>
+
+  <div class="recipe-instructions">
+      <h2>조리 과정</h2>
+      <ol>
+          <li>볼에 계란을 깨서 넣고 물과 소금을 넣은 후 잘 풀어줍니다.</li>
+          <li>계란물을 그릇에 담고 랩을 씌운 후 젓가락으로 랩에 구멍을 몇 개 내줍니다.</li>
+          <li>전자레인지에 2분~3분 정도 돌려 계란이 부드럽게 익을 때까지 가열합니다.</li>
+          <li>완성된 계란찜에 참기름과 쪽파를 올려 마무리합니다.</li>
+      </ol>
+  </div>
+
+  <div class="recipe-tip">
+      <h2>TIP</h2>
+      <ul>
+          <li>참기름을 추가하면 고소한 맛을 더할 수 있습니다.</li>
+          <li>전자레인지 시간은 기기 출력에 따라 조절해 주세요. 너무 길게 돌리지 않도록 주의합니다.</li>
+          <li>간단하게 김치나 밥과 함께 먹어도 좋습니다.</li>
+      </ul>
+  </div>
+
+  <div class="arrow-left" onclick="previousRecipe()">
+    &#9664; <!-- 왼쪽 화살표 -->
+  </div>
+  
+  <div class="arrow-right" onclick="nextRecipe()">
+    &#9654; <!-- 오른쪽 화살표 -->
+  </div>
+</div>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      
+  
+ 
+ 
+ 
+
+
+
+     
+
+ <!-- footer section -->
+ <section class="container-fluid footer_section">
+  <div class="social_container">
+    <h4 style="font-family: Poppins;">
+      Follow Us, IOMEAL
+    </h4>
+    <div class="social-box">
+      <a href="https://github.com/siwon333/AI_capstone">
+        <img src="{% static 'images/githubcat.png' %}" alt="" width="40" height="39">
+      </a>
+    </div>
+  </div>
+  <p>&copy; 2019 All Rights Reserved. Design by <a href="https://html.design/">Free Html Templates</a></p>
+</section>
+<!-- footer section -->
+
+
+ 
+
+  <script type="text/javascript" src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/bootstrap.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/pop.js' %}"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
+  </script>
+
+  <script>
+    function openNav() {
+      document.getElementById("myNav").classList.toggle("menu_width");
+      document
+        .querySelector(".custom_menu-btn")
+        .classList.toggle("menu_btn-style");
+    }
+  </script>
+
+
+  <!-- owl carousel script -->
+  <script type="text/javascript">
+    $(".owl-carousel").owlCarousel({
+      loop: true,
+      margin: 35,
+      navText: [],
+      autoplay: true,
+      autoplayHoverPause: true,
+      responsive: {
+        0: {
+          items: 1
+        },
+        600: {
+          items: 2
+        },
+        1000: {
+          items: 3
+        }
+      }
+    });
+
+
+
+  </script>
+
+
+
+<script>
+
+const recipeContainers = document.querySelectorAll('.recipe-container');
+let currentRecipeIndex = 0;
+
+function showRecipe(index) {
+    recipeContainers[currentRecipeIndex].classList.add('fade-out');
+    
+    setTimeout(() => {
+        // 이전 레시피 숨기기
+        recipeContainers[currentRecipeIndex].style.display = 'none';
+        recipeContainers[currentRecipeIndex].classList.remove('fade-out');
+
+        // 새로운 레시피 보이기
+        currentRecipeIndex = index;
+        recipeContainers[currentRecipeIndex].style.display = 'block';
+        recipeContainers[currentRecipeIndex].classList.add('fade-in');
+    }, 500);  // 0.5초 후 페이드 인 전환
+}
+
+function previousRecipe() {
+    const newIndex = (currentRecipeIndex === 0) ? recipeContainers.length - 1 : currentRecipeIndex - 1;
+    showRecipe(newIndex);
+}
+
+function nextRecipe() {
+    const newIndex = (currentRecipeIndex === recipeContainers.length - 1) ? 0 : currentRecipeIndex + 1;
+    showRecipe(newIndex);
+}
+
+// 초기 설정
+document.addEventListener('DOMContentLoaded', () => {
+    recipeContainers.forEach((container, index) => {
+        if (index !== currentRecipeIndex) {
+            container.style.display = 'none';
+        }
+    });
+});
+
+
+
+
+</script>
+
+
+<script>
+
+function showRecipe(index) {
+    // 슬라이드 아웃 현재 레시피
+    recipeContainers[currentRecipeIndex].classList.add('slide-out-left');
+    
+    setTimeout(() => {
+        recipeContainers[currentRecipeIndex].style.display = 'none';
+        recipeContainers[currentRecipeIndex].classList.remove('slide-out-left');
+
+        // 슬라이드 인 새로운 레시피
+        currentRecipeIndex = index;
+        recipeContainers[currentRecipeIndex].style.display = 'block';
+        recipeContainers[currentRecipeIndex].classList.add('slide-in-right');
+    }, 500);  // 슬라이드 아웃 후 슬라이드 인 적용
+}
+
+</script>
+
+</body>
+
+</html>

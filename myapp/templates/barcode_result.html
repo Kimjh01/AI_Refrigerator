@@ -1,0 +1,220 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block contents %} 
+
+  
+<section class="hot_section layout_padding">
+  <div class="container">
+    <div class="heading_container">
+      <h2 style="font-family: Pretendard-ExtraBold;">
+        바코드 인식으로 새로 추가된 음식
+      </h2>
+      <hr>
+    </div>
+    <p style="font-family: Pretendard-Regular;">
+      <br>
+      다음은 바코드 인식으로 새로 추가된 음식입니다.
+      <br>
+    </p>
+  </div></div>
+
+
+  {% if food %}
+<section class="product_section">
+    <div class="product_box">
+        <img src="{% static 'images/barcode.png' %}" alt="Product Image">
+        <h4>{{ food.name }}</h4>
+        <p>보관날짜: {{ capture_date|date:"Y-m-d" }} <br>
+           유통기한: {{ food.get_expiry_date|date:"Y-m-d" }}</p>
+        <p>바코드: {{ food.barcode }}</p>
+        {% if product_info %}
+            <h5>추가 정보:</h5>
+            <ul>
+            {% for key, value in product_info.items %}
+                <li>{{ key }}: {{ value }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+</section>
+{% else %}
+<p>상품 정보를 찾을 수 없습니다.</p>
+{% endif %}
+
+
+
+
+
+
+
+    <!-- 모달 창 구조 (모든 버튼에 공유) -->
+<div id="appleStorageModal" class="modal">
+ <div class="modal-content">
+   <span class="close">&times;</span>
+   <h2>보관 방법</h2>
+   <p>해당 제품의 보관 방법 내용이 여기에 표시됩니다.</p>
+ </div>
+</div>
+
+
+    <!-- hot section -->
+
+    <section class="hot_section layout_padding">
+      <div class="container">
+        <div class="heading_container" style="margin-top: 50px;">
+          <h2 style="font-family: Pretendard-ExtraBold;">
+            유통기한이 임박한 식재료
+          </h2>
+          <hr>
+        </div>
+        <br>
+        <div class="recipe-section">
+          <br>
+          <p style="font-family: Pretendard-Regular;">현재 냉장고 내 유통기한이 임박한 식재료들 입니다. <br>
+            이 재료들로 맛있고 건강한 요리를 해보세요! <br>
+            딱 알맞는 레시피를 추천해드릴게요
+          </p>
+          <div class="blog_btn">
+            <a href="{url 'cook_result1'}" class="btn btn-dark rounded-pill">레시피 추천 받기</a>
+          </div>
+        </div>
+        
+        
+      </div>
+      <div class="carousel_container">
+        <div class="container">
+          <div class="carousel-wrap ">
+            <div class="owl-carousel">
+              <div class="item">
+                <div class="box">
+                  <div class="img-box">
+                    <img src="{% static 'images/radish.jpg' %}" />
+                  </div>
+                  <div class="detail-box">
+                    <h4 style="font-family: Pretendard-Bold;"> <br>
+                      무
+                    </h4>
+                    <p style="font-family: Pretendard-Regular;">
+                      보관날짜: 2024.11.01 <br>
+                      유통기한: 2024.11.10
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="box">
+                  <div class="img-box">
+                    <img src="{% static 'images/carrot.jpg' %}" />
+                  </div>
+                  <div class="detail-box">
+                    <h4 style="font-family: Pretendard-Bold;"> <br>
+                      당근
+                    </h4>
+                    <p style="font-family: Pretendard-Regular;">
+                      보관날짜: 2024.10.21 <br>
+                      유통기한: 2024.11.11
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="box">
+                  <div class="img-box">
+                    <img src="{% static 'images/springonion.jpg' %}" />
+                  </div>
+                  <div class="detail-box">
+                    <h4 style="font-family: Pretendard-Bold;"> <br>
+                      대파
+                    </h4>
+                    <p style="font-family: Pretendard-Regular;">
+                      보관날짜: 2024.11.01 <br>
+                      유통기한: 2024.11.08
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </section>
+  
+    <!-- end hot section -->
+
+
+
+
+
+
+
+    
+   
+
+    <div id="allergyWarningModal" class="modal" style="display: none;">
+      <div class="modal-content">
+          <span class="close" onclick="closeModal()">&times;</span>
+          <img src="{% static 'images/warning.png' %}" alt="">
+          <p>땅콩 알레르기 유발 식품입니다.</p>
+      </div>
+  </div>
+  
+  <script>
+      function closeModal() {
+          document.getElementById("allergyWarningModal").style.display = "none";
+      }
+  
+      document.addEventListener("DOMContentLoaded", function() {
+          const allergyBarcodes = ["8801117494100", "8801062014675", "8801117431907"];
+          const foodBarcode = "{{ food.barcode }}"; // 서버에서 받아온 바코드 값
+  
+          if (allergyBarcodes.includes(foodBarcode)) {
+              setTimeout(() => {
+                  document.getElementById("allergyWarningModal").style.display = "block";
+              }, 1000);
+          }
+      });
+  </script>
+  
+  <style>
+      .modal {
+          display: none;
+          position: fixed;
+          z-index: 1;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0,0,0,0.4);
+      }
+      .modal-content {
+          background-color: #fefefe;
+          margin: 15% auto;
+          padding: 20px;
+          border: 1px solid #888;
+          width: 80%;
+          text-align: center;
+          font-family: Pretendard-ExtraBold;
+          position: relative;
+      }
+      .close {
+          position: absolute;
+          top: 10px;
+          left: 50%;
+          transform: translateX(-50%);
+          font-size: 28px;
+          font-weight: bold;
+          cursor: pointer;
+      }
+      .close:hover, .close:focus {
+          color: red;
+      }
+  </style>
+  
+  
+   
+
+
+
+{% endblock %}

@@ -1,0 +1,229 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title>IOMEAL</title>
+
+  <!-- slider stylesheet -->
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}" />
+  
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Poppins:400,700|Raleway:400,700&display=swap"
+    rel="stylesheet" />
+  
+  <!-- Custom styles for this template -->
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  <!-- responsive style -->
+  <link rel="stylesheet" href="{% static 'css/responsive.css' %}" />
+  
+  <!-- flaticon stylesheet -->
+  <link rel="stylesheet" href="{% static 'css/flaticon.css' %}">
+
+
+
+  <style>
+        @font-face {
+      font-family: 'Pretendard-Regular';
+      src: url('{% static "fonts/Pretendard-Regular.otf" %}');
+    }
+
+    @font-face {
+      font-family: 'Pretendard-Bold';
+      src: url('{% static "fonts/Pretendard-Bold.otf" %}');
+    }
+
+    @font-face {
+      font-family: 'Pretendard-ExtraBold';
+      src: url('{% static "fonts/Pretendard-ExtraBold.otf" %}');
+    }
+
+    .list-topics{
+      font-family: 'Pretendard';
+      
+    }
+
+    
+    /* 로딩 화면을 페이지 전체 가운데가 아닌, header와 footer 사이에 배치 */
+    #loading {
+        position: absolute;
+        top: 50%; /* 화면 중간에 배치 */
+        left: 50%;
+        transform: translate(-50%, -50%); /* 정확히 가운데로 이동 */
+        background-color: transparent; /* 배경을 투명하게 설정 */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999; /* 페이지 내용 위에 표시되도록 설정 */
+    }
+
+    /* 로딩 애니메이션 */
+    .loader {
+        border: 16px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 16px solid #3498db;
+        width: 120px;
+        height: 120px;
+        animation: spin 2s linear infinite;
+    }
+
+    /* 로딩 애니메이션 효과 */
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+
+
+    /* 새로운 section을 중앙에 정렬하기 위한 CSS */
+.center-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 200px); /* header와 footer를 제외한 화면 중앙 */
+  text-align: center; /* 텍스트 가운데 정렬 */
+  font-family: 'Pretendard';
+}
+
+
+</style>
+
+
+</head>
+
+<body class="sub_page">
+  <div class="hero_area">
+    <!-- header section strats -->
+    <header class="header_section">
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg custom_nav-container">
+          <a class="navbar-brand" href="{% url 'main_home' %}">
+            <img src="{% static 'images/fridge2.png' %}" alt="" />
+            <span>
+              IOMEAL
+            </span>
+          </a>
+
+          <div class="navbar-collapse" id="">
+            <div class="custom_menu-btn">
+              <button onclick="openNav()">
+                <span class="s-1"> </span>
+                <span class="s-2"> </span>
+                <span class="s-3"> </span>
+              </button>
+            </div>
+            <div id="myNav" class="overlay">
+              <div class="overlay-content">
+                <a href="{% url 'main_home' %}">HOME</a>
+                <a href="{% url 'add_food' %}">ADD</a>
+                <a href="{% url 'recipes' %}">RECIPES</a>
+                <a href="{% url 'best_before' %}">BEST BEFORE</a>
+                <a href="{% url 'community' %}">COMMUNITY</a>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <!-- end header section -->
+  </div>
+
+  <section id="loading-text" class="center-text">
+    <h1 style="font-family: Pretendard-ExtraBold;">바코드를 인식 중 입니다... <br><br><br><br><br><br><br><br><br></h1>
+    <div id="loading">
+        <div class="loader"></div>
+  </section>
+
+
+
+
+ <!-- footer section -->
+ <section class="container-fluid footer_section">
+  <div class="social_container">
+    <h4>
+      Follow Us, IOMEAL
+    </h4>
+    <div class="social-box">
+      <a href="https://github.com/siwon333/AI_capstone">
+        <img src="{% static 'images/githubcat.png' %}" alt="" width="40" height="39">
+      </a>
+    </div>
+  </div>
+  <p>&copy; 2019 All Rights Reserved. Design by <a href="https://html.design/">Free Html Templates</a></p>
+</section>
+<!-- footer section -->
+
+<script type="text/javascript" src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/bootstrap.js' %}"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
+  </script>
+
+  <script>
+    function openNav() {
+      document.getElementById("myNav").classList.toggle("menu_width");
+      document
+        .querySelector(".custom_menu-btn")
+        .classList.toggle("menu_btn-style");
+    }
+  </script>
+
+<script>
+  // 페이지 로드 후 바코드 인식 요청 보내기
+  window.onload = function() {
+    fetch('/open_camera_and_scan_barcode/')
+      .then(response => response.json())
+      .then(data => {
+        if (data.barcode) {
+          console.log("인식된 바코드:", data.barcode);
+          // 바코드를 활용한 추가 작업 수행
+        } else {
+          console.log("오류:", data.error);
+        }
+      })
+      .catch(error => console.error("바코드 인식 요청 실패:", error));
+  };
+</script>
+
+
+
+  <!-- owl carousel script -->
+  <script type="text/javascript">
+    $(".owl-carousel").owlCarousel({
+      loop: true,
+      margin: 35,
+      navText: [],
+      autoplay: true,
+      autoplayHoverPause: true,
+      responsive: {
+        0: {
+          items: 1
+        },
+        600: {
+          items: 2
+        },
+        1000: {
+          items: 3
+        }
+      }
+    });
+  </script>
+  <!-- end owl carousel script -->
+
+</body>
+
+</html>

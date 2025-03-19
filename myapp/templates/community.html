@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block contents %} 
+
+<section class="contact_section layout_padding">
+  <div class="container" style="margin-bottom: 2em;">
+    <h2 style="font-family: Pretendard-ExtraBold; font-size:40px">맛있는 게시판</h2>
+    
+    <!-- 기존 이미지 및 텍스트 -->
+    <div id="columns">
+      <figure>
+        <figcaption>장볼 목록! <br> => 사과, 양상추, 고구마, 두부, 후추...</figcaption>
+      </figure>
+
+      <figure>
+        <img src="{% static 'images/iluvu.jpg' %}" alt="Image 1">
+        <figcaption></figcaption>
+      </figure>
+
+      <figure>
+        <img src="{% static 'images/familyphoto.jpg' %}" alt="Family Photo">
+        <figcaption>사랑하는 우리가족</figcaption>
+      </figure>
+
+      <figure>
+        <figcaption>엄마! 아빠! 읽어주세요 <br> 엄마 아빠께 준호 고기 먹고 싶어요</figcaption>
+      </figure>
+
+      <figure>
+        <img src="{% static 'images/galbi.png' %}" alt="Galbi">
+        <figcaption>맛있는 갈비찜 레시피</figcaption>
+      </figure>
+
+      <!-- 사용자 저장 이미지 -->
+      {% for image in drawing_images %}
+        <figure>
+          <img src="{% static image %}" alt="User Drawing">
+          <figcaption>반가워요, 공학페스티벌 :) </figcaption>
+        </figure>
+      {% endfor %}
+    </div>
+
+    <div class="blog_btn">
+      <a href="{% url 'drawing_page' %}" class="btn btn-dark rounded-pill col-3 mt-3">글 추가</a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,230 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block contents %} 
+
+<section class="hot_section layout_padding">
+  <div class="container">
+    <div class="heading_container">
+      <h2 style="font-family: Pretendard-ExtraBold;">영수증 인식으로 추가된 음식</h2>
+      <hr>
+    </div>
+    <p style="font-family: Pretendard-Regular;">
+      <br>
+      다음은 영수증 인식으로 추가된 음식입니다.
+      <br>
+    </p>
+  </div></div>
+
+
+  <section class="product_section">
+    {% if ocr_data %}
+        {% for item in ocr_data %}
+        <div class="product_box">
+            <img src="{% static 'images/bill.png' %}" alt="Product Image">
+            <h4>{{ item.name }}</h4>
+            <p>보관날짜: {{ item.purchase_date }}</p>
+            <p>유통기한: {{ item.expiry_date }} <br></p>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p>인식된 데이터가 없습니다.</p>
+    {% endif %}
+</section>
+
+  
+
+
+   <!-- 모달 창 구조 (모든 버튼에 공유) -->
+   <div id="appleStorageModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>보관 방법</h2>
+      <p>해당 제품의 보관 방법 내용이 여기에 표시됩니다.</p>
+    </div>
+   </div>
+   
+   
+   <section class="hot_section layout_padding">
+    <div class="container">
+      <div class="heading_container" style="margin-top: 50px;">
+        <h2 style="font-family: Pretendard-ExtraBold;">
+          유통기한이 임박한 식재료
+        </h2>
+        <hr>
+      </div>
+      <br>
+      <div class="recipe-section">
+        <br>
+        <p style="font-family: Pretendard-Regular;">현재 냉장고 내 유통기한이 임박한 식재료들 입니다. <br>
+          이 재료들로 맛있고 건강한 요리를 해보세요! <br>
+          딱 알맞는 레시피를 추천해드릴게요
+        </p>
+        <div class="blog_btn">
+          <a href="{% url 'cook_loading1' %}" class="btn btn-dark rounded-pill">레시피 추천 받기</a>
+        </div>
+      </div>
+      
+      
+    </div>
+    <div class="carousel_container">
+      <div class="container">
+        <div class="carousel-wrap ">
+          <div class="owl-carousel">
+
+
+            <div class="item">
+              <div class="box">
+                <div class="img-box">
+                  <img src="{% static 'images/springonion.jpg' %}" />
+                </div>
+                <div class="detail-box">
+                  <h4 style="font-family: Pretendard-Bold;"> <br>
+                    대파
+                  </h4>
+                  <p style="font-family: Pretendard-Regular;">
+                    보관날짜: 2024.11.01 <br>
+                    유통기한: 2024.11.08
+                  </p>
+                  <p style="font-family: Pretendard-Bold; color: red;">
+                    D-1
+                  </p>
+                </div>
+              </div>
+            </div>
+
+
+
+
+            <div class="item">
+              <div class="box">
+                <div class="img-box">
+                  <img src="{% static 'images/radish.jpg' %}" />
+                </div>
+                <div class="detail-box">
+                  <h4 style="font-family: Pretendard-Bold;"> <br>
+                    무
+                  </h4>
+                  <p style="font-family: Pretendard-Regular;">
+                    보관날짜: 2024.11.01 <br>
+                    유통기한: 2024.11.10
+                  </p>
+                  <p style="font-family: Pretendard-Bold; color: red;">
+                    D-3
+                  </p>
+                </div>
+              </div>
+            </div>
+
+
+
+
+            <div class="item">
+              <div class="box">
+                <div class="img-box">
+                  <img src="{% static 'images/bill.png' %}" />
+                </div>
+                <div class="detail-box">
+                  <h4 style="font-family: Pretendard-Bold;"> <br>
+                    소갈비
+                  </h4>
+                  <p style="font-family: Pretendard-Regular;">
+                    보관날짜: 2024.10.28 <br>
+                    유통기한: 2024.11.11
+                  </p>
+                  <p style="font-family: Pretendard-Bold; color: red;">
+                    D-4
+                  </p>
+                </div>
+              </div>
+            </div>
+
+
+
+            <div class="item">
+              <div class="box">
+                <div class="img-box">
+                  <img src="{% static 'images/onion.jpg' %}" />
+                </div>
+                <div class="detail-box">
+                  <h4 style="font-family: Pretendard-Bold;"> <br>
+                    양파
+                  </h4>
+                  <p style="font-family: Pretendard-Regular;">
+                    보관날짜: 2024.10.21 <br>
+                    유통기한: 2024.11.11
+                  </p>
+                  <p style="font-family: Pretendard-Bold; color: red;">
+                    D-4
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+
+            <div class="item">
+              <div class="box">
+                <div class="img-box">
+                  <img src="{% static 'images/apple.jpg' %}" />
+                </div>
+                <div class="detail-box">
+                  <h4 style="font-family: Pretendard-Bold;"> <br>
+                    사과
+                  </h4>
+                  <p style="font-family: Pretendard-Regular;">
+                    보관날짜: 2024.10.28 <br>
+                    유통기한: 2024.11.11
+                  </p>
+                  <p style="font-family: Pretendard-Bold; color: red;">
+                    D-4
+                  </p>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="item">
+              <div class="box">
+                <div class="img-box">
+                  <img src="{% static 'images/pepper.jpg' %}" />
+                </div>
+                <div class="detail-box">
+                  <h4 style="font-family: Pretendard-Bold;"> <br>
+                    고추
+                  </h4>
+                  <p style="font-family: Pretendard-Regular;">
+                    보관날짜: 2024.10.28 <br>
+                    유통기한: 2024.11.11
+                  </p>
+                  <p style="font-family: Pretendard-Bold; color: red;">
+                    D-4
+                  </p>
+                </div>
+              </div>
+            </div>
+
+
+            
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script>
+    // 모든 요소에 대한 클릭 이벤트 추가
+    document.querySelectorAll('[data-link]').forEach(item => {
+        item.addEventListener('click', function() {
+            const link = this.getAttribute('data-link'); // data-link 값 가져오기
+            if (link) {
+                window.location.href = link; // 해당 링크로 이동
+            }
+        });
+    });
+</script>
+   
+     </section>
+     
+       <!-- end hot section -->
+
+{% endblock %}

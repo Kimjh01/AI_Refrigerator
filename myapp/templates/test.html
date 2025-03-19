@@ -1,0 +1,568 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title>IOMEAL</title>
+  <!-- slider stylesheet -->
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Poppins:400,700|Raleway:400,700&display=swap"
+    rel="stylesheet" />
+
+  <!-- Custom styles for this template -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="{% static 'css/responsive.css' %}" rel="stylesheet" />
+
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link rel="stylesheet" type="text/css" href="{% static 'css/best_before3.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/pop.css' %}">
+
+  <style>
+
+@font-face {
+      font-family: 'Pretendard-Regular';
+      src: url('{% static "fonts/Pretendard-Regular.otf" %}');
+    }
+
+    @font-face {
+      font-family: 'Pretendard-Bold';
+      src: url('{% static "fonts/Pretendard-Bold.otf" %}');
+    }
+
+    @font-face {
+      font-family: 'Pretendard-ExtraBold';
+      src: url('{% static "fonts/Pretendard-ExtraBold.otf" %}');
+    }
+
+    .fresh img {
+  width: 60px; /* 아이콘의 너비 */
+  height: 60px; /* 아이콘의 높이 */
+}
+
+
+
+
+  </style>
+
+</head>
+
+<body class="sub_page">
+  <div class="hero_area">
+    <!-- header section strats -->
+    <header class="header_section">
+		<div class="container-fluid">
+		  <nav class="navbar navbar-expand-lg custom_nav-container">
+			<a class="navbar-brand" href="{% url 'main_home' %}">
+			  <img src="{% static 'images/fridge2.png' %}" alt="" />
+			  <span>
+				IOMEAL
+			  </span>
+			</a>
+  
+			<div class="navbar-collapse" id="">
+			  <div class="custom_menu-btn">
+				<button onclick="openNav()">
+				  <span class="s-1"> </span>
+				  <span class="s-2"> </span>
+				  <span class="s-3"> </span>
+				</button>
+			  </div>
+			  <div id="myNav" class="overlay">
+				<div class="overlay-content" style="font-family: Pretendard-Bold;">
+				  <a href="{% url 'main_home' %}" style="margin-bottom: 5px;">홈 화면</a>
+				  <a href="{% url 'add_food' %}" style="margin-bottom: 5px;">음식 추가</a>
+				  <a href="{% url 'recipes' %}" style="margin-bottom: 5px;">레시피 추천</a>
+				  <a href="{% url 'best_before' %}" style="margin-bottom: 5px;">유통기한 확인</a>
+				  <a href="{% url 'community' %}" style="margin-bottom: 5px;">맛있는 게시판</a>
+				</div>
+			  </div>
+			</div>
+		  </nav>
+		</div>
+	  </header>
+	  <!-- end header section -->
+  </div>
+
+      <!-- Fixed button -->
+      <button class="fixed-button">+</button>
+
+      <div id="popup-list" class="popup-list hidden">
+       <p class="popup-description" data-link="{% url 'add_food' %}">다음 방법으로 음식을 추가해보세요:</p>
+       <ul>
+         <li data-link="{% url 'ai_scan_loading' %}">AI 자동 스캔</li>
+         <li data-link="{% url 'receipt_loading' %}">영수증 인식</li>
+         <li data-link="{% url 'barcode_loading' %}">바코트 인식</li>
+         <li data-link="{% url 'manual_input' %}">직접 입력</li>
+       </ul>
+     </div>
+
+
+ <section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center mb-4">
+                <h2 class="heading-section" style="margin-top: 100px; font-family: Pretendard-ExtraBold; font-size: 45px;">
+                    지금 내 냉장고 속 음식들
+                </h2>
+            </div>
+        </div>
+        <div class="table-container">
+            <div>
+                <div>
+                    <table>
+                      <thead>
+                        <tr>
+                            <th>&nbsp;</th>
+                            <th>사진</th>
+                            <th>이름</th>
+                            <th>날짜</th>
+                            <th>TIP</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <!-- Example Rows (반복적으로 추가) -->
+                        <tr>
+                            <td>
+                                <label>
+                                      <input type="checkbox">
+                                      <span></span>
+                                </label>
+                            </td>
+                            <td>
+                                <div style="background-image: url('{% static 'images/carrot.jpg' %}');"></div>
+                            </td>
+                          <td>당근</td>
+                          <td>
+                            보관날짜: 2024.10.21 <br>
+                            유통기한: 2024.11.11
+                          </td>
+                          <td> 
+                            <div class="fresh"><img src="{% static 'images/fresh.png' %}" alt="" class="open-modal" data-title="당근의 보관 방법" data-content="
+                              <br>• 당근은 흙이 붙어 있는 상태로 보관하는 것이 좋다. <br>
+                            • 세척하지 않고 신문지나 키친타월로 감싸 냉장 보관 시 1개월 정도 신선함을 유지할 수 있다.<br>
+                            • 잘린 당근은 밀폐 용기에 담아 냉장 보관해야 한다.<br>
+                            "></div>
+                          </td>
+
+                          <td>
+                              <button type="button" aria-label="Close">
+                                <span aria-hidden="true"><i class="fa fa-close"></i></span>
+                              </button>
+                          </td>
+                        </tr>
+
+						<tr>
+                            <td>
+                                <label>
+                                      <input type="checkbox">
+                                      <span></span>
+                                </label>
+                            </td>
+                            <td>
+                                <div style="background-image: url('{% static 'images/springonion.jpg' %}');"></div>
+                            </td>
+                          <td>대파</td>
+                          <td>
+                            보관날짜: 2024.11.01 <br>
+                            유통기한: 2024.11.08
+                          </td>
+                          <td><div class="fresh"><img src="{% static 'images/fresh.png' %}" alt="" class="open-modal" data-title="대파의 보관 방법" data-content="
+                            <br> • 대파는 세척 후 물기를 제거한 다음, 랩으로 싸거나 밀폐 용기에 담아 냉장 보관하는 것이 좋다. <br>
+• 대파를 냉동 보관할 경우, 깨끗이 씻어 손질한 후 잘게 썰어 밀폐 용기에 담아 보관하면 된다.<br>
+• 냉동 보관 시 약 3개월 동안 신선도를 유지할 수 있다.<br>
+                            "></div>
+                          </td>
+                          <td>
+                              <button type="button" aria-label="Close">
+                                <span aria-hidden="true"><i class="fa fa-close"></i></span>
+                              </button>
+                          </td>
+                        </tr>
+
+						<tr>
+                            <td>
+                                <label>
+                                      <input type="checkbox">
+                                      <span></span>
+                                </label>
+                            </td>
+                            <td>
+                                <div style="background-image: url('{% static 'images/radish.jpg' %}');"></div>
+                            </td>
+                          <td>무</td>
+                          <td>
+                            보관날짜: 2024.11.01 <br>
+                            유통기한: 2024.11.10 
+                          </td>
+                          <td>
+                            <div class="fresh"><img src="{% static 'images/fresh.png' %}" alt="" class="open-modal" data-title="무의 보관 방법" data-content="
+                              <br> • 무는 잎을 잘라낸 후 신문지에 싸서 냉장 보관하면 2~3주 동안 신선하게 유지된다.<br>
+• 잘린 무는 랩으로 감싸거나 밀폐 용기에 넣어 냉장 보관하는 것이 좋다.<br>
+• 무는 서늘하고 건조한 곳에서 보관해야 하며, 너무 습한 곳은 피하는 것이 좋다.<br>
+"></div>
+                          </td>
+                          <td>
+                              <button type="button" aria-label="Close">
+                                <span aria-hidden="true"><i class="fa fa-close"></i></span>
+                              </button>
+                          </td>
+                        </tr>
+
+						<tr>
+                            <td>
+                                <label>
+                                      <input type="checkbox">
+                                      <span></span>
+                                </label>
+                            </td>
+                            <td>
+                                <div style="background-image: url('{% static 'images/bill.png' %}');"></div>
+                            </td>
+                          <td>소갈비</td>
+                          <td>
+                            보관날짜: 2024.11.04 <br>
+                            유통기한: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                          </td>
+                          <td></td>
+                          <td>
+                              <button type="button" aria-label="Close">
+                                <span aria-hidden="true"><i class="fa fa-close"></i></span>
+                              </button>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td>
+                              <label>
+                                    <input type="checkbox">
+                                    <span></span>
+                              </label>
+                          </td>
+                          <td>
+                              <div style="background-image: url('{% static 'images/apple.jpg' %}');"></div>
+                          </td>
+                        <td>사과</td>
+                        <td>
+                          보관날짜: 2024.11.07 <br>
+                          유통기한: 2024.12.07
+                        </td>
+                        <td>
+                          <div class="fresh"><img src="{% static 'images/fresh.png' %}" alt="" class="open-modal" data-title="사과의 보관 방법" data-content="• 사과는 냉장 보관 시 약 1~2개월 동안 신선하게 유지된다.<br>
+                            <br>• 사과는 서늘하고 건조한 곳에 보관하는 것이 가장 좋다.<br>
+                            • 사과에서 나오는 에틸렌 가스는 다른 과일의 숙성을 촉진할 수 있으므로, 다른 과일과 분리해서 보관하는 것이 좋다.<br>
+                            "></div>
+                        </td>
+                        <td>
+                            <button type="button" aria-label="Close">
+                              <span aria-hidden="true"><i class="fa fa-close"></i></span>
+                            </button>
+                        </td>
+                      </tr>
+  
+                        <tr>
+                          <td>
+                              <label>
+                                    <input type="checkbox">
+                                    <span></span>
+                              </label>
+                          </td>
+                          <td>
+                              <div style="background-image: url('{% static 'images/cucumber.jpg' %}');"></div>
+                          </td>
+                        <td>오이</td>
+                        <td>
+                          보관날짜: 2024.11.07 <br>
+                          유통기한: 2024.11.14
+                        </td>
+                        <td>
+                          <div class="fresh"><img src="{% static 'images/fresh.png' %}" alt=""  class="open-modal" data-title="오이의 보관 방법" data-content="• 오이는 세척 후 물기를 제거한 후 보관한다. <br>
+                            <br> • 냉장 보관 시 오이는 신선함을 약 1주일 동안 유지할 수 있다. <br>
+                            • 오이는 습기에 민감하므로 밀폐 용기에 넣어 보관하는 것이 좋다. <br>"></div>
+                        </td>
+                        <td>
+                            <button type="button" aria-label="Close">
+                              <span aria-hidden="true"><i class="fa fa-close"></i></span>
+                            </button>
+                        </td>
+                      </tr>
+  
+  
+                      <tr>
+                        <td>
+                            <label>
+                                  <input type="checkbox">
+                                  <span></span>
+                            </label>
+                        </td>
+                        <td>
+                            <div style="background-image: url('{% static 'images/grape.jpg' %}');"></div>
+                        </td>
+                      <td>포도</td>
+                      <td>
+                        보관날짜: 2024.11.07 <br>
+                        유통기한: 2024.11.14
+                      </td>
+                      <td>
+                        <div class="fresh"><img src="{% static 'images/fresh.png' %}" alt="" class="open-modal" data-title="포도의 보관 방법" data-content="• 포도는 세척하지 않은 상태로 보관하는 것이 좋다. 먹기 직전에 세척한다. <br>
+                          <br> • 냉장고의 야채 칸에 보관하면 1~2주 동안 신선하게 유지할 수 있다.<br>
+                          • 장기간 보관 시 냉동 보관이 가능하며, 냉동 포도는 아이스 디저트로도 활용할 수 있다. <br>"></div>
+                      </td>
+                      <td>
+                          <button type="button" aria-label="Close">
+                            <span aria-hidden="true"><i class="fa fa-close"></i></span>
+                          </button>
+                      </td>
+                    </tr>
+  
+  
+  
+                    <tr>
+                      <td>
+                          <label>
+                                <input type="checkbox">
+                                <span></span>
+                          </label>
+                      </td>
+                      <td>
+                          <div style="background-image: url('{% static 'images/tangerine.jpg' %}');"></div>
+                      </td>
+                    <td>귤</td>
+                    <td>
+                      보관날짜: 2024.11.07 <br>
+                      유통기한: 2024.11.14
+                    </td>
+                    <td>
+                      <div class="fresh"><img src="{% static 'images/fresh.png' %}" alt="" class="open-modal" data-title="귤의 보관 방법" data-content="• 구매시 표피에 상처가 없고 만졌을 때 너무 물렁하지 않은 귤을 골라낸다. <br>
+                        <br> • 귤이 잠길 정도의 물에 소금을 풀어 녹인후 귤을 5분 정도 담갔다가 깨끗한 물로 헹궈주면 된다. 세척후에는 반드시 물기를 꼼꼼하게 닦아준다. 수분이 남아 있으면 귤이 상하기 쉽다. <br>
+                        • 귤은 가급적 통풍이 잘 통하는 서늘한 실온에서 보관하는 것이 좋다. 냉장고 같은 저온에서 보관하게 되면 실온보다 당도가 떨어진다. <br>
+                        ※ 출처 : 농식품정보누리, 서귀포 감귤박물관"></div>
+                    </td>
+                    <td>
+                        <button type="button" aria-label="Close">
+                          <span aria-hidden="true"><i class="fa fa-close"></i></span>
+                        </button>
+                    </td>
+                  </tr>
+						<tr>
+                            <td>
+                                <label>
+                                      <input type="checkbox">
+                                      <span></span>
+                                </label>
+                            </td>
+                            <td>
+                                <div style="background-image: url('{% static 'images/barcode.png' %}');"></div>
+                            </td>
+                          <td>자유시간</td>
+                          <td>
+                            보관날짜: 2024.11.07 <br>
+                            유통기한: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                          </td>
+                          <td>
+                            <div class="fresh"><img src="{% static 'images/warning.png' %}" alt="" class="open-modal" data-title="알르레기 유발 식품" data-content="• 땅콩이 함유된 식품 입니다."></div>
+                          </td>
+                          <td>
+                              <button type="button" aria-label="Close">
+                                <span aria-hidden="true"><i class="fa fa-close"></i></span>
+                              </button>
+                          </td>
+                        </tr>
+
+
+
+                        <tr>
+                          <td>
+                              <label>
+                                    <input type="checkbox">
+                                    <span></span>
+                              </label>
+                          </td>
+                          <td>
+                              <div style="background-image: url('{% static 'images/barcode.png' %}');"></div>
+                          </td>
+                        <td>치즈</td>
+                        <td>
+                          보관날짜: 2024.11.07 <br>
+                          유통기한: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </td>
+                        <td></td>
+                        <td>
+                            <button type="button" aria-label="Close">
+                              <span aria-hidden="true"><i class="fa fa-close"></i></span>
+                            </button>
+                        </td>
+                      </tr>
+
+                      
+
+					
+                      </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination Section -->
+        <div class="row justify-content-center">
+            <nav>
+                <ul class="pagination">
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Round-pill Button Section -->
+        <div class="row justify-content-center">
+            <a href="{% url 'cook_result' %}" class="btn btn-dark rounded-pill col-3 mt-3" style="margin-bottom: 110px; font-family: Pretendard-Bold; font-size: 19px;">선택한 재료로 요리하기</a>
+        </div>
+    </div>
+</section>
+
+                          <!-- 모달 구조 (공유 모달) -->
+                          <div id="storageModal" class="modal">
+                            <div class="modal-content">
+                              <span class="close">&times;</span>
+                              <h2 id="modalTitle">보관 방법</h2>
+                              <p id="modalContent">보관 방법 내용이 여기에 표시됩니다.</p>
+                            </div>
+                          </div>
+
+
+
+
+	<script src="{% static 'js/jquery.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'js/pop.js' %}"></script>
+
+ 
+
+  <!-- footer section -->
+  <section class="container-fluid footer_section">
+    <div class="social_container">
+      <h4>
+        Follow Us, IOMEAL
+      </h4>
+      <div class="social-box">
+        <a href="https://github.com/siwon333/AI_capstone">
+          <img src="{% static 'images/githubcat.png' %}" alt="" width="40" height="39">
+        </a>
+      </div>
+    </div>
+    <p>&copy; 2019 All Rights Reserved. Design by <a href="https://html.design/">Free Html Templates</a></p>
+  </section>
+  <!-- footer section -->
+
+  <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+  <script type="text/javascript" src="js/bootstrap.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
+  </script>
+
+  <script>
+    function openNav() {
+      document.getElementById("myNav").classList.toggle("menu_width");
+      document
+        .querySelector(".custom_menu-btn")
+        .classList.toggle("menu_btn-style");
+    }
+  </script>
+
+<script>
+	// 모든 체크박스를 선택
+	const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+  
+	// 각 체크박스에 이벤트 리스너 추가
+	checkboxes.forEach(function(checkbox) {
+	  checkbox.addEventListener('change', function() {
+		const row = this.closest('tr'); // 체크박스가 속한 행
+		if (this.checked) {
+		  row.classList.add('selected'); // 체크되면 배경색 클래스 추가
+		} else {
+		  row.classList.remove('selected'); // 체크 해제되면 클래스 제거
+		}
+	  });
+	});
+  </script>
+
+<script>
+  // 모달 관련 요소 찾기
+  var modal = document.getElementById("storageModal");
+  var span = document.getElementsByClassName("close")[0];
+  var modalTitle = document.getElementById("modalTitle");
+  var modalContent = document.getElementById("modalContent");
+
+  // 모든 '보관 방법' 아이콘에 이벤트 리스너 추가
+  document.querySelectorAll('.open-modal').forEach(function(img) {
+    img.onclick = function() {
+      modalTitle.textContent = this.getAttribute('data-title');
+      // innerHTML을 사용하여 <br> 태그를 해석해 줄바꿈 처리
+      modalContent.innerHTML = this.getAttribute('data-content');
+      modal.style.display = "block";
+    }
+  });
+
+  // 닫기 버튼 클릭 시 모달 닫기
+  span.onclick = function() {
+    modal.style.display = "none";
+  }
+
+  // 모달 외부 클릭 시 닫기
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+</script>
+
+
+  
+
+  <!-- owl carousel script -->
+  <script type="text/javascript">
+    $(".owl-carousel").owlCarousel({
+      loop: true,
+      margin: 35,
+      navText: [],
+      autoplay: true,
+      autoplayHoverPause: true,
+      responsive: {
+        0: {
+          items: 1
+        },
+        600: {
+          items: 2
+        },
+        1000: {
+          items: 3
+        }
+      }
+    });
+  </script>
+  <!-- end owl carousel script -->
+
+</body>
+
+</html>

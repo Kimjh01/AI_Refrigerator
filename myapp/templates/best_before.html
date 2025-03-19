@@ -1,0 +1,354 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block contents %}
+
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center mb-4">
+                <h2 class="heading-section" style="margin-top: 100px; font-family: Pretendard-ExtraBold; font-size: 45px;">
+                    지금 내 냉장고 속 음식들
+                </h2>
+            </div>
+        </div>
+        <div class="table-container" style="font-family: Pretendard-Regular;">
+            <div>
+                <div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>&nbsp;</th>
+                                <th>사진</th>
+                                <th>이름</th>
+                                <th>
+                                    {% with request.GET.sort_by as current_sort %}
+                                        {% if current_sort == 'expiry_date' %}
+                                            <a href="?sort_by=-expiry_date" style="text-decoration: none; color: inherit;">날짜 ▼</a>
+                                        {% elif current_sort == '-expiry_date' %}
+                                            <a href="?sort_by=expiry_date" style="text-decoration: none; color: inherit;">날짜 ▲</a>
+                                        {% else %}
+                                            <a href="?sort_by=expiry_date" style="text-decoration: none; color: inherit;">날짜</a>
+                                        {% endif %}
+                                    {% endwith %}
+                                </th>
+                                <th>보관 방법</th>
+                                <th>&nbsp;</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in food_items %}
+                            <tr>
+                                <td>
+                                    <label>
+                                        <input type="checkbox">
+                                        <span></span>
+                                    </label>
+                                </td>
+                                <td>
+                                    {% if item.source == "barcode" %}
+                                        <div style="background-image: url('{% static 'images/barcode.png' %}'); width: 50px; height: 50px; background-size: cover;"></div>
+                                    {% elif item.source == "receipt" %}
+                                        <div style="background-image: url('{% static 'images/bill.png' %}'); width: 50px; height: 50px; background-size: cover;"></div>
+
+                                    {% elif item.source == "ai_scan" and item.name == "오이" %}
+                                        <div style="background-image: url('{% static 'yolo_images/cucumber.jpg' %}'); width: 50px; height: 50px; background-size: cover;"></div>
+                                    {% elif item.source == "ai_scan" and item.name == "애호박" %}
+                                        <div style="background-image: url('{% static 'yolo_images/squash.jpg' %}'); width: 50px; height: 50px; background-size: cover;"></div>
+                                    {% elif item.source == "ai_scan" and item.name == "양파" %}
+                                        <div style="background-image: url('{% static 'yolo_images/onion.jpg' %}'); width: 50px; height: 50px; background-size: cover;"></div>
+                                    {% elif item.source == "ai_scan" and item.name == "토마토" %}
+                                        <div style="background-image: url('{% static 'yolo_images/tomato.jpg' %}'); width: 50px; height: 50px; background-size: cover;"></div>
+                                    {% elif item.source == "ai_scan" and item.name == "사과" %}
+                                        <div style="background-image: url('{% static 'yolo_images/apple.jpg' %}'); width: 50px; height: 50px; background-size: cover;"></div>
+                                    {% elif item.source == "ai_scan" and item.name == "당근" %}
+                                        <div style="background-image: url('{% static 'yolo_images/carrot.jpg' %}'); width: 50px; height: 50px; background-size: cover;"></div>
+                                    {% elif item.source == "ai_scan" and item.name == "고추" %}
+                                        <div style="background-image: url('{% static 'yolo_images/chili.jpg' %}'); width: 50px; height: 50px; background-size: cover;"></div>
+                                    {% elif item.source == "ai_scan" and item.name == "가지" %}
+                                        <div style="background-image: url('{% static 'yolo_images/egg plant.jpg' %}'); width: 50px; height: 50px; background-size: cover;"></div>
+                                    {% elif item.source == "ai_scan" and item.name == "귤" %}
+                                        <div style="background-image: url('{% static 'yolo_images/tangerine.jpg' %}'); width: 50px; height: 50px; background-size: cover;"></div>
+                                    {% elif item.source == "ai_scan" and item.name == "파프리카" %}
+                                        <div style="background-image: url('{% static 'yolo_images/pimento.jpg' %}'); width: 50px; height: 50px; background-size: cover;"></div>
+                                    {% elif item.source == "ai_scan" and item.name == "감자" %}
+                                        <div style="background-image: url('{% static 'yolo_images/potato.jpg' %}'); width: 50px; height: 50px; background-size: cover;"></div>
+                                    {% elif item.source == "ai_scan" and item.name == "대파" %}
+                                        <div style="background-image: url('{% static 'yolo_images/spring_onion.jpg' %}'); width: 50px; height: 50px; background-size: cover;"></div>
+                                  
+                                    {% else %}
+                                        <div style="background-image: url('{% static 'images/text.png' %}'); width: 50px; height: 50px; background-size: cover;"></div>
+                                        
+                                    {% endif %}
+                                </td>
+                                
+                                <td>{{ item.name }}</td>
+                                <td>
+                                    보관날짜: {{ item.purchase_date }}<br>
+                                    {% if item.expiry_date %}
+                                    유통기한: {{ item.expiry_date }}
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if item.storage_type %}
+                                    <div class="fresh">
+                                        <img src="{% static 'images/fresh.png' %}" alt="" class="open-modal" 
+                                             data-title="{{ item.name }}의 보관 방법"
+                                             data-content="{{ item.storage_type }}">
+                                    </div>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <form method="post" action="{% url 'delete_food_item' item.id %}" style="display:inline;">
+                                        {% csrf_token %}
+                                        <button type="submit" aria-label="Close">
+                                            <span aria-hidden="true"><i class="fa fa-close" style="font-size: 48px;"></i></span>
+                                        </button>
+                                    </form>
+                                </td>
+                                
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination Section -->
+        <div class="row justify-content-center">
+            <nav>
+                <ul class="pagination">
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <!-- <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Round-pill Button Section -->
+        <!-- <div class="row justify-content-center">
+            <a href="{% url 'cook_result1' %}" class="btn btn-dark rounded-pill col-3 mt-3" 
+               style="margin-bottom: 110px; font-family: Pretendard-Bold; font-size: 19px;">선택한 재료로 요리하기</a>
+        </div> -->
+    </div>
+</section>
+
+<section class="hot_section layout_padding" style="margin-bottom: 60px;">
+    <div class="container">
+        <div class="heading_container" >
+            <h2 style="font-family: Pretendard-ExtraBold;">
+                식재료가 부족하신가요?
+            </h2>
+            <hr>
+        </div>
+        <br>
+        <div class="recipe-section">
+            <br>
+            <p style="font-family: Pretendard-Regular;">IOMEAL로 편리하게 장보세요! <br>
+                쿠팡, 마켓컬리, 이마트몰, 홈플러스, 롯데마트에서 원하는 식료품을 받아 볼 수 있습니다. <br>
+            </p>
+        </div>
+        <!-- 둥근 네모 세 개 -->
+        <div class="image-grid">
+            <a href="https://www.coupang.com">
+                <div class="image-item">
+                    <img src="{% static 'images/coupang.jpg' %}" alt="Image 1">
+                </div>
+            </a>
+            <a href="https://www.kurly.com">
+                <div class="image-item">
+                    <img src="{% static 'images/kurly.png' %}" alt="Image 2">
+                </div>
+            </a>
+            <a href="https://emart.ssg.com">
+                <div class="image-item">
+                    <img src="{% static 'images/emart.png' %}" alt="Image 3">
+                </div>
+            </a>
+            <a href="https://mfront.homeplus.co.kr/">
+                <div class="image-item">
+                    <img src="{% static 'images/homeplus.jpg' %}" alt="Image 4">
+                </div>
+            </a>
+            <a href="https://www.lotteon.com/m/display/main/lottemart">
+                <div class="image-item">
+                    <img src="{% static 'images/lottemart.jpg' %}" alt="Image 5">
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<style>
+
+  /* 이미지 그리드 스타일 */
+  .image-grid {
+      display: flex;
+      justify-content: center;
+      gap: 30px; /* 이미지 간의 간격 조정 */
+      margin-top: 20px;
+  }
+
+  .image-item {
+      flex: 1;
+      max-width: 150px; /* 이미지의 최대 너비를 120px로 줄임 */
+      overflow: hidden;
+      border-radius: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+  }
+
+  .image-item:hover {
+    transform: scale(1.1); /* 아이콘 크기를 1.1배로 확대 */
+    transition: transform 0.3s ease; /* 부드러운 전환 효과 */
+}
+
+
+/* 테이블 스타일 */
+.table-container {
+    margin-bottom: 30px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+/* 체크박스 스타일 */
+input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+/* 모달 스타일 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 10px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: black;
+}
+</style>
+
+<!-- 모달 구조 -->
+<div id="storageModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2 id="modalTitle">보관 방법</h2>
+        <p id="modalContent">보관 방법 내용이 여기에 표시됩니다.</p>
+    </div>
+</div>
+
+<script>
+// 체크박스 이벤트 핸들러
+document.querySelectorAll('input[type="checkbox"]').forEach(function(checkbox) {
+    checkbox.addEventListener('change', function() {
+        const row = this.closest('tr');
+        if (this.checked) {
+            row.classList.add('selected');
+        } else {
+            row.classList.remove('selected');
+        }
+    });
+});
+
+// 모달 관련 스크립트
+document.addEventListener("DOMContentLoaded", function() {
+    var modal = document.getElementById("storageModal");
+    var span = document.getElementsByClassName("close")[0];
+    var modalTitle = document.getElementById("modalTitle");
+    var modalContent = document.getElementById("modalContent");
+
+    document.querySelectorAll('.open-modal').forEach(function(img) {
+        img.onclick = function() {
+            modalTitle.textContent = this.getAttribute('data-title');
+            modalContent.innerHTML = this.getAttribute('data-content');
+            modal.style.display = "block";
+        }
+    });
+
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+});
+
+// 삭제 버튼 이벤트 핸들러
+document.querySelectorAll('button[data-item-id]').forEach(button => {
+    button.addEventListener('click', function() {
+        const itemId = this.getAttribute('data-item-id');
+        if (confirm('이 항목을 삭제하시겠습니까?')) {
+            fetch(`/delete-food/${itemId}/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    this.closest('tr').remove();
+                }
+            });
+        }
+    });
+});
+
+// CSRF 토큰을 가져오는 함수
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+</script>
+
+{% endblock %}

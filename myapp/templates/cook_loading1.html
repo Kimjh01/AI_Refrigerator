@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block contents %} 
+
+  <section id="loading-text" class="center-text">
+    <h1>추천 레시피를 생성하고 있습니다... <br><br><br><br><br><br><br><br><br></h1>
+    <div id="loading">
+        <div class="loader"></div>
+  </section>
+
+<script>
+  // 2.5초 후에 다음 페이지로 이동하는 스크립트
+  setTimeout(() => {
+      window.location.href = "{% url 'cook_result1' %}";  // 이동할 페이지 경로를 지정
+  }, 1500);  // 2500ms = 2.5초
+</script>
+{% endblock %}

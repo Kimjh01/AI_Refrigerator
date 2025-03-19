@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block contents %} 
+<h1>Food Items</h1>
+
+<ul>
+    {% for item in food_items %}
+        <li>
+            <strong>음식 이름:</strong> {{ item.item_data.food_name }}<br>
+            <strong>구입 날짜:</strong> {{ item.item_data.purchase_date }}<br>
+            <strong>유통기한:</strong> {{ item.item_data.expiration_date }}
+        </li>
+    {% empty %}
+        <p>No food items found.</p>
+    {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,280 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block contents %} 
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>알레르기 정보 선택</title>
+    <style>
+        /* body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fafafa;
+        }
+
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        } */
+
+        @font-face {
+      font-family: 'Pretendard-Regular';
+      src: url('{% static "fonts/Pretendard-Regular.otf" %}');
+    }
+
+    @font-face {
+      font-family: 'Pretendard-Bold';
+      src: url('{% static "fonts/Pretendard-Bold.otf" %}');
+    }
+
+    @font-face {
+      font-family: 'Pretendard-ExtraBold';
+      src: url('{% static "fonts/Pretendard-ExtraBold.otf" %}');
+    }
+    @font-face {
+      font-family: 'AmericanTypewriterBQ-Bold';
+      src: url('{% static "fonts/AmericanTypewriterBQ-Bold.otf" %}');
+    }
+
+        h1 {
+            margin-top: 50px;
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+    .allergy-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+    margin-bottom: 30px;
+    
+}
+
+.health-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(150px, 1fr));
+    gap: 15px;
+    margin-bottom: 30px;
+    justify-content: center;
+}
+
+
+.allergy-item, .health-item {
+    background-color: #DCDCDC;
+    border: 2px solid #DCDCDC;
+    border-radius: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.3s ease;
+    font-family: 'Pretendard-Bold';
+    
+}
+
+.allergy-item.selected, .health-item.selected {
+    /* background-color: #1a73e8; */
+    background-color: #f4872e;
+    color: white;
+    border-color: #f4872e;
+}
+
+
+        .save-button {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 20px auto;
+            padding: 15px;
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .save-button:hover {
+            background-color: #1557b0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" style="margin-top: 100px;">
+        <h1 style="font-family: 'Pretendard-ExtraBold';">건강 정보 선택</h1>
+        <div class="health-grid" id="healthGrid">
+            <!-- 알레르기 항목들은 JavaScript로 동적 생성됩니다 -->
+        </div>
+        <!-- <button class="save-button" onclick="saveAllergies()">저장하기</button> -->
+        
+    </div>
+
+    <script>
+        const healthItems = [
+            '당 관리', '다이어트', '키성장'
+        ];
+    
+        const selectedHealthItems = new Set();
+    
+        function createHealthItems() {
+            const grid = document.getElementById('healthGrid');
+            healthItems.forEach(health => {
+                const item = document.createElement('div');
+                item.className = 'health-item';
+                item.textContent = health;
+                item.onclick = () => toggleHealth(item, health);
+                grid.appendChild(item);
+            });
+        }
+    
+        function toggleHealth(element, health) {
+            element.classList.toggle('selected');
+            if (selectedHealthItems.has(health)) {
+                selectedHealthItems.delete(health);
+            } else {
+                selectedHealthItems.add(health);
+            }
+        }
+    
+        function saveHealthItems() {
+            const selectedArray = Array.from(selectedHealthItems);
+    
+            // JSON 파일로 저장
+            const jsonData = JSON.stringify({healthItems: selectedArray}, null, 2);
+            const jsonBlob = new Blob([jsonData], {type: 'application/json'});
+            const jsonUrl = URL.createObjectURL(jsonBlob);
+            const jsonLink = document.createElement('a');
+            jsonLink.href = jsonUrl;
+            jsonLink.download = 'healthItems.json';
+            jsonLink.click();
+    
+            // Excel CSV 파일로 저장
+            const csvData = 'Health Items\n' + selectedArray.join('\n');
+            const csvBlob = new Blob([csvData], {type: 'text/csv'});
+            const csvUrl = URL.createObjectURL(csvBlob);
+            const csvLink = document.createElement('a');
+            csvLink.href = csvUrl;
+            csvLink.download = 'healthItems.csv';
+            csvLink.click();
+        }
+    
+        // 페이지 로드 시 건강 항목 생성
+        createHealthItems();
+    </script>
+    
+
+    <!-- <hr style="border: 1px solid black; width: 80%; margin: 0 auto;""> -->
+     <br>
+     <br>
+
+
+
+    <div class="container">
+        <h1 style="font-family: 'Pretendard-ExtraBold';">알레르기 정보 선택</h1>
+        <div class="allergy-grid" id="allergyGrid">
+            <!-- 알레르기 항목들은 JavaScript로 동적 생성됩니다 -->
+        </div>
+        <!-- <button class="save-button" onclick="saveAllergies()">저장하기</button> -->
+        <button class="save-button" 
+        onclick="window.location.href='{% url 'main_home' %}';"
+        style="font-family:'Pretendard-Bold'; margin-top: 100px;">저장하기</button>
+    </div>
+
+    <script>
+        const allergies = [
+            '없음', '난류', '우유', '메밀', '땅콩',
+            '대두', '밀', '고등어', '게',
+            '새우', '돼지고기', '복숭아', '토마토',
+            '아황산류', '호두', '닭고기', '쇠고기',
+            '오징어', '조개류', '잣'
+        ];
+
+        const selectedAllergies = new Set();
+
+        function createAllergyItems() {
+            const grid = document.getElementById('allergyGrid');
+            allergies.forEach(allergy => {
+                const item = document.createElement('div');
+                item.className = 'allergy-item';
+                item.textContent = allergy;
+                item.onclick = () => toggleAllergy(item, allergy);
+                grid.appendChild(item);
+            });
+        }
+
+        function toggleAllergy(element, allergy) {
+            element.classList.toggle('selected');
+            if (selectedAllergies.has(allergy)) {
+                selectedAllergies.delete(allergy);
+            } else {
+                selectedAllergies.add(allergy);
+            }
+        }
+
+        function saveAllergies() {
+            const selectedArray = Array.from(selectedAllergies);
+            
+            // JSON 파일로 저장
+            const jsonData = JSON.stringify({allergies: selectedArray}, null, 2);
+            const jsonBlob = new Blob([jsonData], {type: 'application/json'});
+            const jsonUrl = URL.createObjectURL(jsonBlob);
+            const jsonLink = document.createElement('a');
+            jsonLink.href = jsonUrl;
+            jsonLink.download = 'allergies.json';
+            jsonLink.click();
+
+            // Excel CSV 파일로 저장
+            const csvData = 'Allergies\n' + selectedArray.join('\n');
+            const csvBlob = new Blob([csvData], {type: 'text/csv'});
+            const csvUrl = URL.createObjectURL(csvBlob);
+            const csvLink = document.createElement('a');
+            csvLink.href = csvUrl;
+            csvLink.download = 'allergies.csv';
+            csvLink.click();
+        }
+
+        // 페이지 로드 시 알레르기 항목 생성
+        createAllergyItems();
+    </script>
+
+    <!-- hot section -->
+
+    <section class="hot_section layout_padding">
+        <div>
+          
+            <h2>
+              
+            </h2>
+            <hr>
+          </div>
+          <p>
+            <br>
+            
+            <br>
+         
+                </div>
+            
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    
+      <!-- end hot section -->
+
+
+</body>
+</html>
+
+
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block contents %}
+
+<section class="hot_section layout_padding">
+    <div class="container">
+        <div class="heading_container">
+            <h2 style="font-family: Pretendard-ExtraBold;">
+                AI가 새로 추가한 음식
+            </h2>
+            <hr>
+        </div>
+        <p style="font-family: Pretendard-Regular;">다음은 AI가 새로 인식한 음식입니다.</p>
+    </div>
+
+    <!-- 감지 결과 표시 -->
+    <div class="product_section" id="detection-results">
+        {% for image in images %}
+        <div class="product_box">
+            <img src="{{ image.image_path }}" alt="{{ image.class_name }}">
+            <h4>{{ image.class_name }}</h4>
+            <p>보관날짜: {{ image.purchase_date }}</p>
+            <p>유통기한: {{ image.expiry_date }}</p> <!-- 5일이 추가된 값 출력 -->
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+{% endblock %}
