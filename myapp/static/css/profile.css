@@ -1,0 +1,212 @@
+/* NanumSquare 폰트 설정 */
+@font-face {
+    font-family: 'NanumSquare';
+    src: url('../fonts/NanumSquareB.otf') format('opentype');
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: 'NanumSquare';
+    src: url('../fonts/NanumSquareEB.otf') format('opentype');
+    font-weight: 800;
+}
+
+@font-face {
+    font-family: 'NanumSquare';
+    src: url('../fonts/NanumSquareL.otf') format('opentype');
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: 'NanumSquare';
+    src: url('../fonts/NanumSquareR.otf') format('opentype');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: '../fonts/American Typewriter';
+    src: url(../fonts/AmericanTypewriterBQ-Bold.otf);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'NanumSquare', sans-serif;
+}
+
+.main {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to right, #51b5ef, #436bf1);
+    width: 100%;
+    height: 100vh;
+    animation: fadein 1s;
+}
+
+/* 로고 및 헤더 */
+.logo-container {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+}
+
+.logo {
+    width: 50px;
+    height: auto;
+}
+
+.logo-text {
+    font-family: 'American Typewriter', sans-serif;
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin-left: 10px;
+    color: #fff;
+}
+
+.header_section {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+}
+
+/* 프로필 선택 섹션 */
+.container {
+    background-color: white;
+    border-radius: 20px;
+    padding: 60px;
+    max-width: 1500px;
+    width: 80%;
+    margin: auto;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.label {
+    font-family: 'NanumSquare', sans-serif;
+    color: black;
+    font-size: 3rem;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 9rem;
+}
+
+.profile {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 60px;
+}
+
+.link {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 160px;
+    cursor: pointer;
+}
+
+.icon {
+    width: 100%;
+    aspect-ratio: 1/1;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 10px;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.25);
+    margin-bottom: 10px;
+    transition: border 0.2s, box-shadow 0.3s;
+}
+
+.icon:hover {
+    border: 3px solid black;
+}
+
+.name {
+    font-family: 'NanumSquare', sans-serif;
+    color: black;
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin-top: 10px;
+    text-align: center;
+    transition: color 0.2s, transform 0.2s;
+}
+
+.name:hover {
+    transform: scale(1.1);
+}
+
+/* 반응형 디자인 */
+@media only screen and (max-width: 1280px) {
+    .label {
+        font-size: 3rem;
+    }
+
+    .link {
+        width: 140px;
+    }
+
+    .name {
+        font-size: 1.2rem;
+    }
+
+    .profile {
+        gap: 50px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .label {
+        font-size: 2.5rem;
+    }
+
+    .link {
+        width: 120px;
+    }
+
+    .name {
+        font-size: 0.8rem;
+    }
+
+    .profile {
+        gap: 40px;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .container {
+        padding: 20px;
+    }
+
+    .label {
+        font-size: 5vw;
+        margin-bottom: 30px;
+    }
+
+    .link {
+        width: 100px;
+    }
+
+    .name {
+        font-size: 0.7rem;
+    }
+
+    .profile {
+        gap: 20px;
+    }
+}
