@@ -52,7 +52,7 @@
           <div class="header_section">
             <div class="container-fluid">
               <nav class="navbar navbar-expand-lg custom_nav-container">
-              <a class="navbar-brand" href="{% url 'main_home' %}">
+              <a class="navbar-brand" href="{% if user.is_authenticated %}{% url 'main_home' %}{% else %}{% url 'login' %}{% endif %}">
                 <img src="{% static 'images/fridge2.png' %}" alt="" />
                 <span>
                 IOMEAL
@@ -74,7 +74,7 @@
                 </div>
                 <div id="myNav" class="overlay">
                 <div class="overlay-content" style="font-family: Pretendard-Bold;">
-                  <a href="{% url 'main_home' %}" style="margin-bottom: 5px;">홈 화면</a>
+                  <a href="{% if user.is_authenticated %}{% url 'main_home' %}{% else %}{% url 'login' %}{% endif %}" style="margin-bottom: 5px;">홈 화면</a>
                   <a href="{% url 'add_food' %}" style="margin-bottom: 5px;">음식 추가</a>
                   <a href="{% url 'recipes' %}" style="margin-bottom: 5px;">레시피 추천</a>
                   <a href="{% url 'best_before' %}" style="margin-bottom: 5px;">유통기한 확인</a>

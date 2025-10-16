@@ -1,13 +1,15 @@
-<!-- ai_scan_loading.html -->
 {% extends 'base.html' %}
+{% load static %}
+
 {% block contents %}
+<head>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/loading.css' %}">
+</head>
 <body class="sub_page">
-  <section id="loading-text" class="center-text">
+  <div class="loading-container">
     <h1 style="font-family: Pretendard-ExtraBold;">AI가 자동으로 음식을 인식 중입니다...</h1>
-    <div id="loading">
-        <div class="loader"></div>
-    </div>
-  </section>
+    <div class="loading-spinner"></div>
+  </div>
 
   <script>
     // 감지 요청을 3회 수행할 카운터 변수

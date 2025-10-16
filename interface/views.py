@@ -132,7 +132,7 @@ def ai_scan(request):
     existing_classes = {detection['class_name'] for detection in all_detections}
 
     # YOLO 감지 시작 (3회 반복)
-    cap = cv2.VideoCapture(2)
+    cap = cv2.VideoCapture(0)
     for _ in range(3):  # 3회 반복
         ret, frame = cap.read()
         if not ret:

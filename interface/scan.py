@@ -13,8 +13,8 @@ from datetime import datetime, timedelta
 from .models import FoodItem  # models.py에서 정의한 모델 import
 
 # CLOVA OCR API 설정
-api_url = 'https://wgx0qbj54o.apigw.ntruss.com/custom/v1/34708/338c935a43532c7781a20459e02703897290a6e9edf0ec92795e6ee78aa3788c/general'
-secret_key = 'S2FhQ1NrbWFiZ0lCcHhqVGhHdlJ4cFVJb0RpbEtUd2I='
+api_url = settings.CLOVA_OCR_API_URL
+secret_key = settings.CLOVA_OCR_SECRET_KEY
 
 # 파일 경로 설정
 beep_sound = os.path.join(settings.BASE_DIR, 'interface/static/sounds/beep.mp3')

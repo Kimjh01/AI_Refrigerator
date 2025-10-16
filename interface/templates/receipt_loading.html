@@ -1,14 +1,16 @@
 {% extends 'base.html' %}
-{% block contents %} 
+{% load static %}
 
-<section id="loading-text" class="center-text" style="margin-top: 200px;">
+{% block contents %} 
+<head>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/loading.css' %}">
+</head>
+<section id="loading-text" class="loading-container">
   <h1 style="font-family: Pretendard-ExtraBold;">영수증을 인식 중입니다... </h1>
-  <div id="loading">
-      <div class="loader"></div>
-  </div>
+  <div class="loading-spinner"></div>
 </section>
 
-<section id="error-section" class="center-text" style="display: none; margin-top: 200px;">
+<section id="error-section" class="loading-container" style="display: none;">
   <div>
     <h1 id="error-message" style="font-family: Pretendard-ExtraBold; color: black;"></h1>
   </div>
@@ -19,7 +21,7 @@
 
 <script>
   function initiateOCR() {
-      document.getElementById("loading-text").style.display = "block";
+      document.getElementById("loading-text").style.display = "flex";
       document.getElementById("error-section").style.display = "none";
 
       fetch("{% url 'run_capture_and_process' %}")
@@ -29,13 +31,13 @@
               window.location.href = data.redirect_url;
           } else {
               document.getElementById("loading-text").style.display = "none";
-              document.getElementById("error-section").style.display = "block";
+              document.getElementById("error-section").style.display = "flex";
               document.getElementById("error-message").innerText = data.message || '영수증 인식 중 오류가 발생했습니다.';
           }
       })
       .catch(() => {
           document.getElementById("loading-text").style.display = "none";
-          document.getElementById("error-section").style.display = "block";
+          document.getElementById("error-section").style.display = "flex";
           document.getElementById("error-message").innerText = '영수증 인식 중 오류가 발생했습니다.';
       });
   }
@@ -48,7 +50,5 @@
       initiateOCR();
   });
 </script>
-
-
 
 {% endblock %}

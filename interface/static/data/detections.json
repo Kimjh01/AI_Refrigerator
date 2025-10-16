@@ -14,5 +14,9 @@
     {
         "class_name": "pimento",
         "detection_time": "2024-11-07"
+    },
+    {
+        "class_name": "onion",
+        "detection_time": "2025-10-17"
     }
 ]
