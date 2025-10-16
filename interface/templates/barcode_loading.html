@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block contents %} 
+<section id="loading-text" class="center-text" style="margin-top: 200px;">
+  <h1 style="font-family: Pretendard-ExtraBold;">바코드를 인식 중 입니다...</h1>
+  <div id="loading">
+      <div class="loader"></div>
+  </div>
+</section>
+
+<section id="error-section" class="center-text" style="display: none; margin-top: 200px;">
+  <div>
+    <h1 id="error-message" style="font-family: Pretendard-ExtraBold; color: black;"></h1>
+  </div>
+  <div>
+    <button onclick="retryScan()" class="retry-button" style="margin-top: 50px;">다시 시도하기</button>
+  </div>
+</section>
+
+<script>
+  function initiateBarcodeScan() {
+      document.getElementById("loading-text").style.display = "block";
+      document.getElementById("error-section").style.display = "none";
+
+      fetch("{% url 'barcode_scan_process' %}", {
+          method: "POST",
+          headers: {
+              "X-CSRFToken": "{{ csrf_token }}",
+              "Content-Type": "application/json"
+          }
+      })
+      .then(response => response.json())
+      .then(data => {
+          if (data.status === 'completed' && data.redirect_url) {
+              window.location.href = data.redirect_url;
+          } else {
+              document.getElementById("loading-text").style.display = "none";
+              document.getElementById("error-section").style.display = "block";
+              document.getElementById("error-message").innerText = data.message || '바코드 인식 중 오류가 발생했습니다.';
+          }
+      })
+      .catch(() => {
+          document.getElementById("loading-text").style.display = "none";
+          document.getElementById("error-section").style.display = "block";
+          document.getElementById("error-message").innerText = '바코드 인식 중 오류가 발생했습니다.';
+      });
+  }
+
+  function retryScan() {
+      initiateBarcodeScan();
+  }
+
+  document.addEventListener("DOMContentLoaded", function() {
+      initiateBarcodeScan();
+  });
+</script>
+
+
+
+
+
+
+{% endblock %}

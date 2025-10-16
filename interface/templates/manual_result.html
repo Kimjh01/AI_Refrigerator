@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block contents %} 
+
+<div class="food-container">
+    <h1 style="margin-top: 50px;">추가한 음식</h1>
+
+    <ul class="food-list">
+        {% for item in food_items %}
+            <li class="food-item">
+                <p><strong>음식 이름:</strong> {{ item.name }}</p>
+                <p><strong>구입 날짜:</strong> {{ item.purchase_date }}</p>
+                <p><strong>유통 기한:</strong> {{ item.expiry_date }}</p>
+            </li>
+        {% empty %}
+            <p class="empty-message">No food items found.</p>
+        {% endfor %}
+    </ul>
+</div>
+
+<!-- hot section -->
+
+<section class="hot_section layout_padding">
+    <div>
+      
+        <h2>
+          
+        </h2>
+        <hr>
+      </div>
+      <p>
+        <br>
+        
+        <br>
+     
+            </div>
+        
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- end hot section -->
+  
+
+{% endblock %}

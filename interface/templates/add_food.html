@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% block contents %} 
+{% load static %}
+  <section class="hot_section layout_padding">
+    <div class="container">
+      <div class="heading_container">
+        <h2 style="font-family: Pretendard-ExtraBold; font-size: 45px;" >
+          음식 추가
+        </h2>
+        <hr>
+      </div>
+      <p style="font-family: Pretendard-Regular; font-size: 25px;" >
+        <br>
+        방금 냉장고에 새로운 음식을 추가하셨나요?
+        <br>
+        4가지의 다양한 옵션으로 앞으로의 음식 관리를 도와드립니다.
+        <br>
+      </p>
+    </div>
+  </section>
+  <div style="height: 100px;"></div>
+  <section id="list-topics" class="list-topics" style="margin-top: 50px;">
+    <div class="container">
+      <div class="list-topics-content">
+        <ul>
+          <li>
+            <a href="{% url 'ai_scan_loading' %}">
+            <div class="single-list-topics-content">
+              <div class="single-list-topics-icon">
+                <i class="flaticon-restaurant"></i>
+              </div>
+              <img src="{% static 'images/ai.png' %}" alt="" class="icon-image">
+              <p></p>
+              <h2>AI 자동스캔</h2>
+            </div>
+          </a>
+          </li>
+          <li>
+            <a href="{% url 'receipt_loading' %}">
+            <div class="single-list-topics-content">
+              <div class="single-list-topics-icon">
+                <i class="flaticon-travel"></i>
+              </div>
+              <img src="{% static 'images/bill.png' %}" alt="" class="icon-image">
+              <p></p>
+              <h2>영수증</h2>
+            </div>
+          </a>
+          </li>
+          <li>          
+          <li>
+            <a href="{% url 'barcode_loading' %}">
+            <div class="single-list-topics-content">
+              <div class="single-list-topics-icon">
+                <i class="flaticon-building"></i>
+              </div>
+              <img src="{% static 'images/barcode.png' %}" alt="" class="icon-image">
+              <p></p>
+              <h2>바코드</h2>
+            </div>
+          </a>
+          </li>
+          <li>
+            <a href="{% url 'manual_input' %}">
+            <div class="single-list-topics-content">
+              <div class="single-list-topics-icon">
+                <i class="flaticon-pills"></i>
+              </div>
+              <img src="{% static 'images/text.png' %}" alt="" class="icon-image">
+              <p></p>
+              <h2>직접 입력</h2>
+            </div>
+          </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="hot_section layout_padding">
+    <div class="container">
+        <div class="heading_container" style="margin-top: 50px;">
+            <h2 style="font-family: Pretendard-ExtraBold;">
+                식재료가 부족하신가요?
+            </h2>
+            <hr>
+        </div>
+        <br>
+        <div class="recipe-section">
+            <br>
+            <p style="font-family: Pretendard-Regular;">IOMEAL로 편리하게 장보세요! <br>
+                쿠팡, 마켓컬리, 이마트몰, 홈플러스, 롯데마트에서 원하는 식료품을 받아 볼 수 있습니다. <br>
+            </p>
+        </div>
+        <!-- 둥근 네모 세 개 -->
+        <div class="image-grid">
+          <a href="https://www.coupang.com">
+            <div class="image-item">
+                <img src="{% static 'images/coupang.jpg' %}" alt="Image 1">
+            </div>
+          </a>
+          <a href="https://www.kurly.com">
+            <div class="image-item">
+                <img src="{% static 'images/kurly.png' %}" alt="Image 2">
+            </div>
+          </a>
+          <a href="https://emart.ssg.com">
+            <div class="image-item">
+                <img src="{% static 'images/emart.png' %}" alt="Image 3">
+            </div>
+          </a>
+          <a href="https://mfront.homeplus.co.kr/">
+            <div class="image-item">
+                <img src="{% static 'images/homeplus.jpg' %}" alt="Image 4">
+            </div>
+          </a>
+          <a href="https://www.lotteon.com/m/display/main/lottemart">
+            <div class="image-item">
+                <img src="{% static 'images/lottemart.jpg' %}" alt="Image 5">
+            </div>
+          </a>
+        </div>
+    </div>
+</section>
+
+
+
+  
+
+
+  {% endblock %}

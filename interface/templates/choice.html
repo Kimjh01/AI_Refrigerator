@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% block contents %} 
+    <div class="container" style="margin-top: 100px;">
+        <h1 style="font-family: 'Pretendard-ExtraBold';">건강 정보 선택</h1>
+        <div class="health-grid" id="healthGrid">
+            <!-- 알레르기 항목들은 JavaScript로 동적 생성됩니다 -->
+        </div>
+    </div>
+
+    <br>
+    <br>
+
+    <div class="container">
+        <h1 style="font-family: 'Pretendard-ExtraBold';">알레르기 정보 선택</h1>
+        <div class="allergy-grid" id="allergyGrid">
+            <!-- 알레르기 항목들은 JavaScript로 동적 생성됩니다 -->
+        </div>
+        <button class="save-button" id="saveChoicesButton" style="font-family:'Pretendard-Bold'; margin-top: 100px;">저장하기</button>
+    </div>
+
+    <script>
+        const healthItemsList = [
+            '당 관리', '다이어트', '키성장'
+        ];
+    
+        const selectedHealthItems = new Set();
+    
+        function createHealthItems() {
+            const grid = document.getElementById('healthGrid');
+            healthItemsList.forEach(health => {
+                const item = document.createElement('div');
+                item.className = 'health-item';
+                item.textContent = health;
+                item.onclick = () => toggleSelection(item, health, selectedHealthItems);
+                grid.appendChild(item);
+            });
+        }
+    
+        const allergiesList = [
+            '없음', '난류', '우유', '메밀', '땅콩',
+            '대두', '밀', '고등어', '게',
+            '새우', '돼지고기', '복숭아', '토마토',
+            '아황산류', '호두', '닭고기', '쇠고기',
+            '오징어', '조개류', '잣'
+        ];
+
+        const selectedAllergies = new Set();
+
+        function createAllergyItems() {
+            const grid = document.getElementById('allergyGrid');
+            allergiesList.forEach(allergy => {
+                const item = document.createElement('div');
+                item.className = 'allergy-item';
+                item.textContent = allergy;
+                item.onclick = () => toggleSelection(item, allergy, selectedAllergies);
+                grid.appendChild(item);
+            });
+        }
+
+        function toggleSelection(element, value, selectionSet) {
+            element.classList.toggle('selected');
+            if (selectionSet.has(value)) {
+                selectionSet.delete(value);
+            } else {
+                selectionSet.add(value);
+            }
+        }
+
+        document.getElementById('saveChoicesButton').addEventListener('click', function() {
+            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+            fetch('{% url "accounts:update_profile_choices" %}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken
+                },
+                body: JSON.stringify({
+                    health_info: Array.from(selectedHealthItems),
+                    allergies: Array.from(selectedAllergies)
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    alert('선택 사항이 저장되었습니다!');
+                    window.location.href = '{% url "main_home" %}';
+                } else {
+                    alert('저장 실패: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('오류 발생: ' + error);
+            });
+        });
+
+        // 페이지 로드 시 항목 생성
+        createHealthItems();
+        createAllergyItems();
+    </script>
+
+    <!-- hot section -->
+    <section class="hot_section layout_padding">
+        <div>
+            <h2></h2>
+            <hr>
+        </div>
+        <p>
+            <br>
+            <br>
+        </p>
+    </section>
+    <!-- end hot section -->
+
+{% endblock %}

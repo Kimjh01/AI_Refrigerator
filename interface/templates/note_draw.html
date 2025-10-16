@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block contents %}
+
+    <h1>그림판 메모장</h1>
+    <canvas id="drawingCanvas"></canvas>
+    <div class="button-container">
+        <button onclick="saveDrawing()">저장</button>
+        <button onclick="clearCanvas()">지우기</button>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('drawingCanvas');
+        const context = canvas.getContext('2d');
+        let drawing = false;
+
+        // 캔버스 크기 설정
+        canvas.width = window.innerWidth * 0.9;
+        canvas.height = 400;
+
+        // 이벤트 핸들러 추가
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mouseout', stopDrawing);
+
+        canvas.addEventListener('touchstart', (e) => startDrawing(e.touches[0]));
+        canvas.addEventListener('touchmove', (e) => draw(e.touches[0]));
+        canvas.addEventListener('touchend', stopDrawing);
+
+        function startDrawing(event) {
+            drawing = true;
+            context.beginPath();
+            context.moveTo(event.clientX - canvas.offsetLeft, event.clientY - canvas.offsetTop);
+            event.preventDefault();
+        }
+
+        function draw(event) {
+            if (!drawing) return;
+            context.lineTo(event.clientX - canvas.offsetLeft, event.clientY - canvas.offsetTop);
+            context.stroke();
+            event.preventDefault();
+        }
+
+        function stopDrawing() {
+            drawing = false;
+        }
+
+        function clearCanvas() {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function saveDrawing() {
+            const dataURL = canvas.toDataURL('image/png');
+            fetch("{% url 'save_drawing' %}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({ image: dataURL })
+            }).then(response => {
+                if (response.ok) {
+                    alert("그림이 저장되었습니다!");
+                    window.location.href = "{% url 'community' %}"; // community 페이지로 이
+                } else {
+                    alert("저장에 실패했습니다.");
+                }
+            });
+        }
+    </script>
+
+{% endblock %}

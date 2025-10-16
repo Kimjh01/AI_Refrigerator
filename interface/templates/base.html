@@ -1,0 +1,349 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <!-- Basic Meta Tags -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title>IOMEAL</title>
+
+  <!-- External Stylesheets -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+  <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" />
+
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Poppins:400,700|Raleway:400,700&display=swap" rel="stylesheet" />
+  <link href="{% static 'css/responsive.css' %}" rel="stylesheet" />
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- Custom styles for this template -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css"
+  href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+  <!-- flaticon stylesheet -->
+  <link rel="stylesheet" href="{% static 'css/flaticon.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/pop.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/best_before3.css' %}">
+
+  <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
+
+</head>
+
+<body class="sub_page">
+  {% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+  {% endif %}
+  <header class="sub_page">
+    <div class="hero_area">
+          <!-- header section strats -->
+          <div class="header_section">
+            <div class="container-fluid">
+              <nav class="navbar navbar-expand-lg custom_nav-container">
+              <a class="navbar-brand" href="{% url 'main_home' %}">
+                <img src="{% static 'images/fridge2.png' %}" alt="" />
+                <span>
+                IOMEAL
+                </span>
+              </a>
+              {% if user.is_authenticated %}
+                <span class="navbar-text" style="color: white; margin-left: 15px;">
+                    반갑습니다. {{ user.username }}님
+                </span>
+              {% endif %}
+          
+              <div class="navbar-collapse" id="">
+                <div class="custom_menu-btn">
+                <button onclick="openNav()">
+                  <span class="s-1"> </span>
+                  <span class="s-2"> </span>
+                  <span class="s-3"> </span>
+                </button>
+                </div>
+                <div id="myNav" class="overlay">
+                <div class="overlay-content" style="font-family: Pretendard-Bold;">
+                  <a href="{% url 'main_home' %}" style="margin-bottom: 5px;">홈 화면</a>
+                  <a href="{% url 'add_food' %}" style="margin-bottom: 5px;">음식 추가</a>
+                  <a href="{% url 'recipes' %}" style="margin-bottom: 5px;">레시피 추천</a>
+                  <a href="{% url 'best_before' %}" style="margin-bottom: 5px;">유통기한 확인</a>
+                  <a href="{% url 'community' %}" style="margin-bottom: 5px;">맛있는 게시판</a>
+                  {% if user.is_authenticated %}
+                    <a href="{% url 'profile' %}" style="margin-bottom: 5px;">프로필</a>
+                    <form action="{% url 'logout' %}" method="post" style="display: block; margin-bottom: 5px;">
+                        {% csrf_token %}
+                        <button type="submit" style="background: none; border: none; color: white; text-decoration: none; cursor: pointer; padding: 0; font-family: 'Pretendard-Bold'; font-size: 22px;">로그아웃</button>
+                    </form>
+                  {% else %}
+                    <a href="{% url 'login' %}" style="margin-bottom: 5px;">로그인</a>
+                    <a href="{% url 'register' %}" style="margin-bottom: 5px;">회원가입</a>
+                  {% endif %}
+                </div>
+                </div>
+              </div>
+              </nav>
+            </div>
+          </div>
+            <!-- end header section -->
+    </div>
+  </header>
+
+    <!-- Fixed button -->
+    <button class="fixed-button">+</button>
+
+    <div id="popup-list" class="popup-list hidden">
+     <p class="popup-description" data-link="{% url 'add_food' %}">다음 방법으로 음식을 추가해보세요:</p>
+     <ul>
+       <li data-link="{% url 'ai_scan_loading' %}">AI 자동 스캔</li>
+       <li data-link="{% url 'receipt_loading' %}">영수증 인식</li>
+       <li data-link="{% url 'barcode_loading' %}">바코드 인식</li>
+       <li data-link="{% url 'manual_input' %}">직접 입력</li>
+     </ul>
+   </div>
+
+   <script>
+    $(document).ready(function(){
+      $(".owl-carousel").owlCarousel({
+        loop: true,
+        margin: 35,
+        nav: false,
+        autoplay: true,
+        autoplayHoverPause: true,
+        responsive: {
+          0: {
+            items: 1
+          },
+          600: {
+            items: 2
+          },
+          1000: {
+            items: 3
+          }
+        }
+      });
+    });
+  </script>
+  
+
+    {% block contents %} 
+    {% endblock %}
+
+
+
+
+ <!-- footer section -->
+ <section class="container-fluid footer_section">
+  <div class="social_container">
+    <h4 style="font-family: Poppins;">
+      Follow Us, IOMEAL
+    </h4>
+    <div class="social-box">
+      <a href="https://github.com/siwon333/AI_capstone">
+        <img src="{% static 'images/githubcat.png' %}" alt="" width="40" height="39">
+      </a>
+    </div>
+  </div>
+  <p>&copy; 2019 All Rights Reserved. Design by <a href="https://html.design/">Free Html Templates</a></p>
+</section>
+<!-- footer section -->
+
+
+ 
+
+  <script type="text/javascript" src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/bootstrap.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/pop.js' %}"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+<script>
+  function openNav() {
+    document.getElementById("myNav").classList.toggle("menu_width");
+    document
+      .querySelector(".custom_menu-btn")
+      .classList.toggle("menu_btn-style");
+  }
+</script>
+
+<script>
+// 모든 체크박스를 선택
+const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+// 각 체크박스에 이벤트 리스너 추가
+checkboxes.forEach(function(checkbox) {
+  checkbox.addEventListener('change', function() {
+  const row = this.closest('tr'); // 체크박스가 속한 행
+  if (this.checked) {
+    row.classList.add('selected'); // 체크되면 배경색 클래스 추가
+  } else {
+    row.classList.remove('selected'); // 체크 해제되면 클래스 제거
+  }
+  });
+});
+</script>
+
+
+<script>
+// 모달 관련 요소 찾기
+var modal = document.getElementById("appleStorageModal");
+var span = document.getElementsByClassName("close")[0];
+var modalTitle = modal.querySelector('h2');
+var modalContent = modal.querySelector('p');
+
+// 모든 '보관 방법' 버튼에 이벤트 리스너 추가
+document.querySelectorAll('.open-modal').forEach(function(btn) {
+  btn.onclick = function(event) {
+    event.preventDefault();
+    modalTitle.textContent = this.getAttribute('data-title');
+    
+    // 줄바꿈(\n)을 <br> 태그로 변환하여 content 삽입
+    var content = this.getAttribute('data-content').replace(/\n/g, '<br>');
+    modalContent.innerHTML = content; // innerHTML 사용으로 HTML 태그를 해석
+    modal.style.display = "block";
+  }
+});
+
+// 닫기 버튼 클릭 시 모달 닫기
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// 모달 외부 클릭 시 닫기
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
+
+<!-- owl carousel script -->
+<script type="text/javascript">
+  $(".owl-carousel").owlCarousel({
+    loop: true,
+    margin: 35,
+    navText: [],
+    autoplay: true,
+    autoplayHoverPause: true,
+    responsive: {
+      0: {
+        items: 1
+      },
+      600: {
+        items: 2
+      },
+      1000: {
+        items: 3
+      }
+    }
+  });
+</script>
+<!-- end owl carousel script -->
+
+
+
+  <script type="text/javascript" src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/bootstrap.js' %}"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+  <script type="text/javascript" src="{% static 'js/pop.js' %}"></script>
+  <script>
+    document.querySelector('.fixed-button').addEventListener('click', function() {
+      const popupList = document.getElementById('popup-list');
+      popupList.classList.toggle('show');
+    });
+
+    document.querySelectorAll('.popup-list li').forEach(function(item) {
+      item.addEventListener('click', function() {
+        const link = this.getAttribute('data-link');
+        window.location.href = link;
+      });
+    });
+  </script>
+  <script>
+    function openNav() {
+      document.getElementById("myNav").classList.toggle("menu_width");
+      document
+        .querySelector(".custom_menu-btn")
+        .classList.toggle("menu_btn-style");
+    }
+  </script>
+  <script>
+    // 모든 체크박스를 선택
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+    // 각 체크박스에 이벤트 리스너 추가
+    checkboxes.forEach(function(checkbox) {
+      checkbox.addEventListener('change', function() {
+      const row = this.closest('tr'); // 체크박스가 속한 행
+      if (this.checked) {
+        row.classList.add('selected'); // 체크되면 배경색 클래스 추가
+      } else {
+        row.classList.remove('selected'); // 체크 해제되면 클래스 제거
+      }
+      });
+    });
+  </script>
+  <script>
+    // 모달 관련 요소 찾기
+    var modal = document.getElementById("appleStorageModal");
+    var span = document.getElementsByClassName("close")[0];
+    var modalTitle = modal.querySelector('h2');
+    var modalContent = modal.querySelector('p');
+
+    // 모든 '보관 방법' 버튼에 이벤트 리스너 추가
+    document.querySelectorAll('.open-modal').forEach(function(btn) {
+      btn.onclick = function(event) {
+        event.preventDefault();
+        modalTitle.textContent = this.getAttribute('data-title');
+        
+        // 줄바꿈(\n)을 <br> 태그로 변환하여 content 삽입
+        var content = this.getAttribute('data-content').replace(/\n/g, '<br>');
+        modalContent.innerHTML = content; // innerHTML 사용으로 HTML 태그를 해석
+        modal.style.display = "block";
+      }
+    });
+
+    // 닫기 버튼 클릭 시 모달 닫기
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+
+    // 모달 외부 클릭 시 닫기
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+  </script>
+  <!-- owl carousel script -->
+  <script type="text/javascript">
+    $(".owl-carousel").owlCarousel({
+      loop: true,
+      margin: 35,
+      navText: [],
+      autoplay: true,
+      autoplayHoverPause: true,
+      responsive: {
+        0: {
+          items: 1
+        },
+        600: {
+          items: 2
+        },
+        1000: {
+          items: 3
+        }
+      }
+    });
+  </script>
+</body>
+</html>

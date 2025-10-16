@@ -1,0 +1,48 @@
+<!-- ai_scan_loading.html -->
+{% extends 'base.html' %}
+{% block contents %}
+<body class="sub_page">
+  <section id="loading-text" class="center-text">
+    <h1 style="font-family: Pretendard-ExtraBold;">AI가 자동으로 음식을 인식 중입니다...</h1>
+    <div id="loading">
+        <div class="loader"></div>
+    </div>
+  </section>
+
+  <script>
+    // 감지 요청을 3회 수행할 카운터 변수
+    let captureCount = 0;
+    let detections = [];
+
+    function captureAndDetect() {
+        fetch("{% url 'ai_scan' %}")
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'completed') {
+                    // YOLO 감지 결과를 누적
+                    detections = detections.concat(data.detections);
+                    captureCount++;
+
+                    if (captureCount >= 3) {
+                        // 3회 촬영 완료 후, 결과를 세션에 저장하고 결과 페이지로 이동
+                        sessionStorage.setItem('detections', JSON.stringify(detections));
+                        window.location.href = "{% url 'ai_scan_result' %}";
+                    } else {
+                        // 아직 3회 미만이라면 1초 후 다음 요청
+                        setTimeout(captureAndDetect, 1000);
+                    }
+                } else if (data.status === 'error') {
+                    alert(data.message);
+                } else {
+                    // 감지가 완료되지 않은 경우 다음 요청
+                    setTimeout(captureAndDetect, 1000);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    // 페이지가 로드될 때 자동으로 captureAndDetect 호출
+    document.addEventListener('DOMContentLoaded', captureAndDetect);
+  </script>
+</body>
+{% endblock %}

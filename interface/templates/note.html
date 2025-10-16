@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block contents %}
+    <h1>메모장</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save-button">저장</button>
+    </form>
+
+    <h2>저장된 메모</h2>
+    <div>
+        {% for note in notes %}
+            <div class="note-box">
+                {{ note.content }} ({{ note.created_at|date:"Y-m-d H:i" }})
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

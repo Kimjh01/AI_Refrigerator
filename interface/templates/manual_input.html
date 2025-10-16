@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block contents %} 
+<div class="form-container" style="margin-top: 100px;">
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" style="margin-top: 20px;">저장</button>
+    </form>
+</div>
+
+<!-- 가상 키보드를 위한 div 추가 -->
+<div id="virtual-keyboard" class="virtual-keyboard"></div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // 텍스트 입력 필드 찾기
+        const textInputs = document.querySelectorAll('input[type="text"]');
+        
+        // 가상 키보드 실행/종료 함수
+        function toggleVirtualKeyboard(show) {
+            if (show) {
+                // 가상 키보드 실행
+                const keyboard = new Promise((resolve, reject) => {
+                    const process = require('child_process').spawn('matchbox-keyboard');
+                    process.on('exit', (code) => {
+                        resolve(code);
+                    });
+                });
+            } else {
+                // 가상 키보드 종료
+                require('child_process').exec('pkill matchbox-keyboard');
+            }
+        }
+
+        // 각 텍스트 입력 필드에 이벤트 리스너 추가
+        textInputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                toggleVirtualKeyboard(true);
+                // 입력 필드가 키보드에 가려지지 않도록 스크롤
+                input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            });
+
+            input.addEventListener('blur', () => {
+                toggleVirtualKeyboard(false);
+            });
+        });
+    });
+</script>
+
+<!-- hot section -->
+<section class="hot_section layout_padding">
+    <div>
+        <h2></h2>
+        <hr>
+    </div>
+    <p>
+        <br>
+        <br>
+    </p>
+</section>
+<!-- end hot section -->
+
+{% endblock %}

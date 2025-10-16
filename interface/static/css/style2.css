@@ -1,0 +1,163 @@
+/* Skeleton Styles */
+* {
+    box-sizing: border-box;
+    transition: ease all 0.5s;
+}
+
+body {
+    color: #666666; 
+    font-size: 14px;
+    line-height: 1.80857;
+    font-weight: normal;
+    font-family: 'Open Sans', sans-serif;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+    color: #111111;
+    margin: 0;
+}
+
+h1 {
+    font-size: 24px;
+}
+
+p {
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 24px;
+    margin: 20px;
+}
+
+a {
+    color: #1f1f1f;
+    text-decoration: none !important;
+    outline: none !important;
+    transition: all 0.3s ease-in-out;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Product Section Styles */
+.product_section {
+    width: 100%;
+    float: left;
+    padding-bottom: 90px;
+}
+
+.product_taital {
+    width: 100%;
+    float: left;
+    font-size: 40px;
+    text-transform: uppercase;
+    text-align: center;
+    color: #232322;
+    font-weight: bold;
+}
+
+.product_text {
+    width: 100%;
+    float: left;
+    font-size: 16px;
+    text-align: center;
+    color: #50504f;
+}
+
+.product_section_2 {
+    width: 100%;
+    float: left;
+    padding-top: 30px;
+}
+
+.product_box {
+    width: 100%;
+    background-color: #ffffff;
+    border: 1px solid #7d7d7c;
+    padding: 20px 0 0;
+    margin-top: 30px;
+}
+
+.bursh_text {
+    font-size: 20px;
+    text-align: center;
+    color: #1a1c1b;
+    font-weight: 600;
+}
+
+.lorem_text {
+    font-size: 14px;
+    text-align: center;
+    color: #50504f;
+    margin: 0;
+}
+
+.image_1 {
+    width: 100%;
+    text-align: center;
+    margin: 20px 0;
+    padding: 0 20px;
+    height: 200px;
+}
+
+.btn_main {
+    width: 100%;
+    display: flex;
+    background-color: #000;
+    padding: 20px 10px 13px;
+}
+
+.buy_bt ul {
+    margin: 0;
+    padding: 0;
+}
+
+.buy_bt li a {
+    font-size: 12px;
+    color: #252525;
+    padding: 5px 10px;
+    background-color: #ffffff;
+    text-transform: uppercase;
+    margin-right: 5px;
+    border-radius: 40px;
+    display: block;
+    text-align: center;
+}
+
+.buy_bt li a:hover {
+    background-color: #f5ddb6;
+    color: #ffffff;
+}
+
+.price_text {
+    font-size: 16px;
+    color: #fefefd;
+    width: 42%;
+    padding-top: 5px;
+    text-align: right;
+}
+
+.seemore_bt {
+    width: 170px;
+    margin: 0 auto;
+    padding-top: 60px;
+}
+
+.seemore_bt a {
+    font-size: 16px;
+    color: #ffffff;
+    background-color: #252525;
+    text-align: center;
+    padding: 10px 0;
+    border-radius: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.seemore_bt a:hover {
+    color: #ffffff;
+    background-color: #f5ddb6;
+}

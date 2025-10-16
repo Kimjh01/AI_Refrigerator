@@ -1,0 +1,8 @@
+django
+opencv-python
+requests
+pandas
+openai==0.28
+pygame
+Pillow
+ultralytics
