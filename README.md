@@ -20,7 +20,7 @@ IOMEAL은 **라즈베리파이 5와 터치스크린**을 활용한 저비용 모
 
 ### [데모 영상](assets/demo_video.mp4)
 
-[시연 영상 보기 (mp4)](./assets/demo.mp4)
+<video src="assets/demo.mp4" width="640" controls></video>
 
 
 
