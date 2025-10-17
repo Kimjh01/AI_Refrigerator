@@ -16,15 +16,31 @@ IOMEAL은 **라즈베리파이 5와 터치스크린**을 활용한 저비용 모
 
 ---
 
+## 주요 기능
+
+### [데모 영상](assets/demo_video.mp4)
+
+<video src="assets/demo_video.mp4" width="600" controls></video>
+
+
+
+### 하드웨어 예시
+
+| 냉장고 부착 |
+| :---: |
+| <img src="assets/refrigerator.jpg" width="450"> |
+
+---
+
 ## 기술 스택
 
-| 구분         | 기술                                     |
-| ---------- | -------------------------------------- |
-| **하드웨어**   | Raspberry Pi 5, Touchscreen            |
-| **백엔드**    | Python, Django                         |
-| **프론트엔드**  | HTML, CSS, JavaScript                  |
-| **AI/ML**  | OpenCV, Ultralytics (YOLO), OpenAI API |
-| **데이터베이스** | SQLite (기본값)                           |
+| 구분 | 기술 |
+| --- | --- |
+| **하드웨어** | Raspberry Pi 5, Touchscreen |
+| **백엔드** | Python, Django |
+| **프론트엔드** | HTML, CSS, JavaScript |
+| **AI/ML** | OpenCV, Ultralytics (YOLO), OpenAI API |
+| **데이터베이스** | SQLite (기본값) |
 
 ---
 
